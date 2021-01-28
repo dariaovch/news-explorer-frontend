@@ -8,22 +8,24 @@ import Footer from '../Footer/Footer.js';
 
 function App() {
   return (
-    <div className="app">
+    <div className="page">
+      <div className="page__container">
+    
+        <Header />
 
-      <Header />
-
-      <Switch>
-        <Route exact path="/">
-          <Main />
-        </Route>
+        <Switch>
+          <Route exact path="/">
+            <Main />
+          </Route>
         
-        <Route path="/saved-news">
-          <SavedNews />
-        </Route>
-      </Switch>
+          <Route path="/saved-news">
+            <SavedNews />
+          </Route>
+        </Switch>
 
-      <Footer />
-
+        <Footer />
+        
+      </div>
     </div>
   );
 }
