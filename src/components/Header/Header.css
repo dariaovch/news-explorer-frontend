@@ -1,0 +1,14 @@
+.header {
+    padding: 0 104px;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #ffffff20;
+}
+
+.header__title {
+    font-family: 'Roboto Slab';
+    color: #fff;
+    font-weight: normal;
+    font-size: 20px;
+    line-height: 1.2;
+}

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Switch, Redirect, useHistory } from 'react-router-dom';
 import './App.css';
-import Header from '../Header/Header.js';
+// import Header from '../Header/Header.js';
 import Main from '../Main/Main.js';
 import SavedNews from '../SavedNews/SavedNews.js';
 import Footer from '../Footer/Footer.js';
@@ -11,7 +11,7 @@ function App() {
     <div className="page">
       <div className="page__container">
     
-        <Header />
+        {/* <Header /> */}
 
         <Switch>
           <Route exact path="/">
@@ -24,7 +24,7 @@ function App() {
         </Switch>
 
         <Footer />
-        
+
       </div>
     </div>
   );

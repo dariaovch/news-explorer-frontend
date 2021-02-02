@@ -3,7 +3,7 @@ import './About.css';
 function About() {
   return (
     <section className="about">
-        <img src={} alt="" className="about__photo" />
+        <img alt="" className="about__photo" />
 
         <h2 className="about__title">
 

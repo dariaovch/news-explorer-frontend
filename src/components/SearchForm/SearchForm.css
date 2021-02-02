@@ -1,0 +1,26 @@
+.search {
+    display: flex;
+    position: relative;
+}
+
+.search__input {
+    width: 608px;
+    height: 64px;
+    border: none;
+    border-radius: 100px;
+    padding: 0;
+}
+
+.search__button {
+    width: 168px;
+    height: 64px;
+    border-radius: 100px;
+    color: #fff;
+    border: none;
+    background-color: #2F71E5;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
