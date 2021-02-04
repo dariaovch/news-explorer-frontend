@@ -2,6 +2,7 @@ import './Main.css';
 import Header from '../Header/Header.js';
 import About from '../About/About.js';
 import SearchForm from '../SearchForm/SearchForm.js';
+import NewsCardList from '../NewsCardList/NewsCardList.js';
 
 function Main() {
   return (
@@ -16,7 +17,11 @@ function Main() {
         </div>
 
         <section className="results">
+            <h2 className="results__title">
+                Результаты поиска
+            </h2>
 
+            <NewsCardList />
         </section>
         <About />
     </div>
