@@ -35,3 +35,54 @@
     line-height: 1.2;
     margin: 0 0 24px 0;
 }
+
+@media screen and (max-width: 930px) {
+    .about {
+        padding: 0 40px;
+    }
+    
+    .about__photo {
+        width: 232px;
+        height: 232px;
+    }
+    
+    .about__text-container {
+        margin: 40px 0 0 32px;
+    }
+    
+    .about__title {
+        font-size: 30px;
+        line-height: 1.3;
+        margin: 0 0 16px 0;
+    }
+    
+    .about__text {
+        max-width: 424px;
+        margin: 0 0 16px 0;
+    }
+}
+  
+@media screen and (max-width: 425px) {
+    .about {
+        flex-direction: column;
+        align-items: center;
+        padding: 32px 0 0 0;
+    }
+    
+    .about__photo {
+        width: 272px;
+        height: 272px;
+    }
+    
+    .about__text-container {
+        margin: 24px 16px 80px 16px;
+    }
+    
+    .about__title {
+        margin: 0 0 16px 0;
+    }
+    
+    .about__text {
+        margin: 0 0 16px 0;
+    }
+}

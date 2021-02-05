@@ -18,6 +18,7 @@
     color: #1A1B22;
     list-style: none;
     display: flex;
+    padding: 0;
 }
 
 .footer__link {
@@ -38,4 +39,78 @@
 
 .footer__github {
 
+}
+
+
+@media screen and (max-width: 930px) {
+    .footer {
+        margin: 0 auto;
+        max-width: 688px;
+        padding: 0;
+    }
+
+    .footer__link {
+         margin-right: 28px;
+    }
+    
+    .footer__social {
+        display: flex;
+    }
+    
+    .footer__icon {
+    
+    }
+    
+    .footer__fb {
+        margin-right: 26px;
+    }
+    
+    .footer__github {
+    
+    }
+}
+  
+@media screen and (max-width: 425px) {
+    .footer {
+        display: flex;
+        flex-direction: column-reverse;
+        justify-content: space-between;
+    }
+    
+    .footer__copyright {
+       margin: 0 16px;
+    }
+    
+    .footer__links {
+        color: #1A1B22;
+        list-style: none;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .footer__main-links {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .footer__link {
+        margin: 0 0 38px 16px;
+    }
+    
+    .footer__social {
+        display: flex;
+    }
+    
+    .footer__icon {
+        width: 20px;
+        height: 20px;
+    }
+    
+    .footer__fb {
+        margin-right: 28px;
+    }
+    
+    .footer__github {
+        margin-right: 18px;
+    }
 }

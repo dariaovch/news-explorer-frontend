@@ -4,7 +4,8 @@ function Navigation() {
   return (
     <nav className="navigation">
        <a className="naviagtion__main">Главная</a>
-       <button className="navigation__auth">Авторизоваться</button>
+       <a className="naviagtion__main">Сохраненные статьи</a>
+       <button className="navigation__auth">Грета</button>
     </nav>
   );
 }
