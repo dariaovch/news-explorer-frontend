@@ -21,6 +21,10 @@
     padding: 0;
 }
 
+.footer__main-links {
+    display: flex;
+}
+
 .footer__link {
      margin-right: 42px;
 }
@@ -89,7 +93,6 @@
     }
 
     .footer__main-links {
-        display: flex;
         flex-direction: column;
     }
     

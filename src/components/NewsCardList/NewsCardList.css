@@ -10,20 +10,9 @@
     margin-top: 0;
     /* margin: 0 104px;  */
     /* Padding? */
+    /* background-color: #F5F6F7; */
 }
 
-.results__show-more {
-    width: 288px;
-    height: 64px;
-    border-radius: 80px;
-    border-color: transparent;
-    background-color: #fff;
-    color: #1A1B22;
-    font-size: 18px;
-    line-height: 1.2;
-    margin-top: 64px;
-    padding: 0;
-}
 
 @media screen and (max-width: 930px) {
    .news {
@@ -33,11 +22,6 @@
        grid-row-gap: 8px;
    }
 
-   .results__show-more {
-       width: 240px;
-       height: 56px;
-       margin-top: 22px;
-    }
 }
   
 @media screen and (max-width: 425px) {
@@ -48,9 +32,4 @@
         grid-row-gap: 10px;
     }
 
-    .results__show-more {
-        width: 288px;
-        height: 56px;
-        margin-top: 15px;
-    }
 }

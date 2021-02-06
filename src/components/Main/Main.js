@@ -22,6 +22,8 @@ function Main() {
             </h2>
 
             <NewsCardList />
+
+            <button className="results__show-more">Показать ещё</button>
         </section>
         <About />
     </div>

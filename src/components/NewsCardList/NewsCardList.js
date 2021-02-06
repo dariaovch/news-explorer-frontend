@@ -8,8 +8,6 @@ function NewsCardList() {
     <ul className="news">
     {NewsArr.map((item) => <NewsCard item={item} key={item._id} />)}
     </ul>
-
-    <button className="results__show-more">Показать ещё</button>
     </>
   );
 }

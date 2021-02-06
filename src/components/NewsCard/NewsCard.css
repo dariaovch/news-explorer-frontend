@@ -13,17 +13,25 @@
     border: none;
     border-radius: 8px;
     background: #fff;
-    background-image: url(../../images/save-icon.png);
+    background-image: url('../../images/save-normal.png');
     background-size: 14px 19px;
     background-repeat: no-repeat;
     background-position: center;
     width: 40px;
     height: 40px;
     padding: 0;
-    transition: opacity 0.4s linear;
+    transition: background-image 0.4s linear;
     position: absolute;
     top: 24px;
     right: 24px;
+}
+
+.card__save-button:hover {
+    background-image: url('../../images/save-icon.png');
+}
+
+.card__save-button_saved {
+    background-image: url('../../images/save-active.png');
 }
 
 .card__image {

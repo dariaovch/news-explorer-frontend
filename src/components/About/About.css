@@ -19,7 +19,7 @@
 
 .about__title {
     color: #1A1B22;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto Slab', sans-serif;
     font-size: 40px;
     font-weight: normal;
     line-height: 1.2;
@@ -29,7 +29,7 @@
 .about__text {
     max-width: 600px;
     color: #1A1B22;
-    font-family: 'Roboto Slab', sans-serif;
+    font-family: 'Roboto', sans-serif;
     font-size: 18px;
     font-weight: normal;
     line-height: 1.2;

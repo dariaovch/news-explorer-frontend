@@ -1,0 +1,17 @@
+.header_sv {
+    padding: 19px 104px 13px 104px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #1A1B2220;
+    box-shadow: inset 0px -1px 0px rgba(255, 255, 255, 0.2);
+}
+
+.header__title_sv {
+    font-family: 'Roboto Slab';
+    color: #1A1B22;
+    font-weight: normal;
+    font-size: 20px;
+    line-height: 1.2;
+    margin: 0;
+}

@@ -2,11 +2,19 @@
 
 }
 
-.naviagtion__main {
+.navigation__main {
     color: #B6BCBF;
     font-size: 18px;
     font-weight: normal;
     margin-right: 32px;
+    text-decoration: none;
+}
+
+.navigation__main_active {
+    color: #fff;
+    border-bottom: 3px solid #fff;
+    padding-bottom: 24px;
+    box-sizing: border-box;
 }
 
 .navigation__auth {
@@ -25,4 +33,40 @@
     color: #fff;
     font-size: 18px;
     text-align: left;
+}
+
+.navigation_black {
+
+}
+
+.navigation__main_black {
+    color: #1A1B22;
+    font-size: 18px;
+    font-weight: normal;
+    margin-right: 32px;
+    text-decoration: none;
+}
+
+.navigation__main_active_black {
+    border-bottom: 3px solid #1A1B22;
+    padding-bottom: 24px;
+    box-sizing: border-box;
+}
+
+.navigation__auth_black { 
+    width: 112px;
+    height: 48px;
+    background-color: transparent;
+    background-image: url('../../images/logout-black.png');
+    /* background-position: right; */
+    background-position-x: 77px;
+    background-position-y: center;
+    background-repeat: no-repeat;
+    background-size: 17.5px 16px;
+    border-radius: 100px;
+    padding: 0 18px;
+    font-size: 18px;
+    text-align: left;
+    color: #1A1B22;
+    border: 1px solid #1A1B22;
 }
