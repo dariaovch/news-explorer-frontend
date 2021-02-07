@@ -84,6 +84,10 @@
     cursor: pointer;
 }
 
+.results__show-more:focus {
+    outline: none;
+}
+
 
 @media screen and (max-width: 930px) {
     .results {

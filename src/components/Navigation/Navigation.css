@@ -1,5 +1,5 @@
 .navigation {
-    display: flex;
+    /* display: flex; */
 }
 
 .navigation__main {
@@ -17,7 +17,36 @@
     box-sizing: border-box;
 }
 
+.navigation__main:hover {
+    cursor: pointer;
+}
+
+.navigation__main:focus {
+    outline: none;
+}
+
+
 .navigation__auth {
+    width: 176px;
+    height: 48px;
+    background-color: transparent;
+    border: 1px solid #fff;
+    border-radius: 100px;
+    padding: 0 18px;
+    color: #fff;
+    font-size: 18px;
+    text-align: center;
+}
+
+.navigation__auth:hover {
+    cursor: pointer;
+}
+
+.navigation__auth:focus {
+    outline: none;
+}
+
+.navigation__logout {
     width: 112px;
     height: 48px;
     background-color: transparent;
@@ -33,6 +62,14 @@
     color: #fff;
     font-size: 18px;
     text-align: left;
+}
+
+.navigation__logout:hover {
+    cursor: pointer;
+}
+
+.navigation__logout:focus {
+    outline: none;
 }
 
 .navigation_black {
@@ -53,7 +90,7 @@
     box-sizing: border-box;
 }
 
-.navigation__auth_black { 
+.navigation__logout_black { 
     width: 112px;
     height: 48px;
     background-color: transparent;

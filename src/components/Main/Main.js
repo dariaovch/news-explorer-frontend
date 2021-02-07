@@ -4,11 +4,11 @@ import About from '../About/About.js';
 import SearchForm from '../SearchForm/SearchForm.js';
 import NewsCardList from '../NewsCardList/NewsCardList.js';
 
-function Main() {
+function Main(props) {
   return (
     <div className="main">
         <div className="main__background">
-        <Header />
+        <Header onLogin={props.onLogin} loggedIn={props.loggedIn} userName={props.userName} />
         <section className="cover">
             <h1 className="cover__title">Что творится в мире?</h1>
             <p className="cover__text">Находите самые свежие статьи на любую тему и сохраняйте в своём личном кабинете.</p>
