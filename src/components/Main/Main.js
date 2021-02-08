@@ -1,10 +1,21 @@
+import React from 'react';
 import './Main.css';
 import Header from '../Header/Header.js';
 import About from '../About/About.js';
 import SearchForm from '../SearchForm/SearchForm.js';
 import NewsCardList from '../NewsCardList/NewsCardList.js';
+import Preloader from '../Preloader/Preloader.js';
+import NothingFound from '../NothingFound/NothingFound.js';
+import { NewsArr } from '../../db/news.js';
 
 function Main(props) {
+
+  // const [news, setNews] = React.useState([]);
+
+  // function getNews() {
+  //   setNews(NewsArr);
+  // }
+
   return (
     <div className="main">
         <div className="main__background">
@@ -17,13 +28,22 @@ function Main(props) {
         </div>
 
         <section className="results">
-            <h2 className="results__title">
+          
+         {/* {isLoading && <Preloader />} */}
+
+           {NewsArr && 
+           <>
+             <h2 className="results__title">
                 Результаты поиска
-            </h2>
+             </h2>
 
-            <NewsCardList />
+             <NewsCardList />
 
-            <button className="results__show-more">Показать ещё</button>
+             <button className="results__show-more">Показать ещё</button>
+            </>}
+
+            {/* {news.length === 0 && <NothingFound />} */}
+
         </section>
         <About />
     </div>

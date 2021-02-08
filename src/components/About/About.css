@@ -38,7 +38,7 @@
 
 @media screen and (max-width: 930px) {
     .about {
-        padding: 0 40px;
+        padding: 40px 40px 0 40px;
     }
     
     .about__photo {
@@ -47,7 +47,7 @@
     }
     
     .about__text-container {
-        margin: 40px 0 0 32px;
+        margin: 0 0 60px 32px;
     }
     
     .about__title {
@@ -84,5 +84,6 @@
     
     .about__text {
         margin: 0 0 16px 0;
+        max-width: 288px;
     }
 }

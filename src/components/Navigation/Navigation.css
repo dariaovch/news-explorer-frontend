@@ -112,6 +112,44 @@
     display: none;
 }
 
+@media screen and (max-width: 930px) {
+    .navigation__main {
+        font-size: 16px;
+        margin-right: 16px;
+        padding-bottom: 20px;
+    }
+
+    .navigation__main_black {
+        font-size: 16px;
+        margin-right: 16px;
+    }
+
+    .navigation__auth {
+        width: 152px;
+        height: 40px;
+        padding: 0 12px;
+        font-size: 16px;
+    }
+
+    .navigation__logout {
+        width: 100px;
+        height: 40px;
+        background-position-x: 67px;
+        padding: 0 12px 0 15px;
+        font-size: 16px;
+    }
+
+    .navigation__logout_black {
+        width: 100px;
+        height: 40px;
+        background-position-x: 67px;
+        padding: 0 12px 0 15px;
+        font-size: 16px;
+    }
+
+}
+
+/* Стиль для бургер меню на мобильных разрешениях */
 @media screen and (max-width: 700px) {
     .navigation {
         display: none;

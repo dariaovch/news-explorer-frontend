@@ -16,9 +16,26 @@
     margin: 0;
 }
 
+@media screen and (max-width: 930px) {
+    .header {
+        padding: 14px 40px 12px 40px;
+    }
+}
 
 @media screen and (max-width: 700px) {
     .header {
         position: relative;
+    }
+}
+
+@media screen and (max-width: 425px) {
+    .header {
+        padding: 16px;
+    }
+
+    .header__title {
+        font-size: 16px;
+        line-height: 1.5;
+        margin: 0;
     }
 }

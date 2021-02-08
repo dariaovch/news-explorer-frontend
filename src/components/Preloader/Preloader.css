@@ -1,0 +1,30 @@
+.preloader {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.preloader__spinner {
+    width: 74px;
+    height: 74px;
+}
+
+@keyframes rotation {
+    from {
+      transform: rotate(0);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+.rotation {
+    animation: rotation 1.5s linear infinite;
+  }
+
+.preloader__text {
+    color: #B6BCBF;
+    font-family: 'Roboto', sans-serif;
+    font-size: 18px;
+    line-height: 24px;
+}

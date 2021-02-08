@@ -15,3 +15,9 @@
     line-height: 1.2;
     margin: 0;
 }
+
+@media screen and (max-width: 930px) {
+    .header_sv {
+        padding: 14px 40px 12px 40px;
+    }
+}

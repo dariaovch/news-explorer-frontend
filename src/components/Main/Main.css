@@ -90,9 +90,26 @@
 
 
 @media screen and (max-width: 930px) {
+    .cover {
+        padding: 38px 0 48px 0;
+    }
+    
+    .cover__title {
+        max-width: 385px;
+        font-size: 36px;
+        margin: 0 0 16px 0;
+        padding-right: 67px;
+        box-sizing: border-box;
+    }
+    
+    .cover__text {
+        max-width: 452px;
+        margin: 0 0 48px 0;
+    }
+
     .results {
         background-color: #F5F6F7;
-        padding: 80px 104px;
+        padding: 40px 40px;
     }
     
     .results__title {
@@ -112,6 +129,21 @@
 }
   
 @media screen and (max-width: 425px) {
+    .cover {
+        padding: 30px 16px 0 16px;
+    }
+    
+    .cover__title {
+        max-width: 285px;
+        font-size: 36px;
+        padding-right: 0;
+    }
+    
+    .cover__text {
+        max-width: 288px;
+        margin: 0 0 122px 0;
+    }
+
     .results {
         background-color: #F5F6F7;
         padding: 16px 32px;

@@ -76,6 +76,8 @@ function App() {
                 <input className="popup__input popup__input_name" type="text" name="name" id="name" required minLength="2" maxLength="30" placeholder="Введите своё имя" />
                 <span className="popup__form-error" id="name-error"></span>
         </PopupWithForm>
+
+
     </div>
   );
 }
