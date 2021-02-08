@@ -13,9 +13,12 @@ function NewsCard({ item }) {
         <button className={hintClassName}>{location.pathname === '/saved-news' ? `Убрать из сохранённых` : `Войдите, чтобы сохранять статьи`}</button>
         <img className="card__image" alt="Картинка новости" src={item.image} />
         <div className="card__data-container">
+          <div className="card__article-container">
             <p className="card__date">{item.date}</p>
               <h2 className="cards__heading">{item.title}</h2>
               <p className="card__text">{item.text}</p>
+           </div>
+              
               <p className="card__source">{item.source}</p>
         </div>
       </li>

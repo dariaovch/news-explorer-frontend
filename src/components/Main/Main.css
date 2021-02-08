@@ -108,24 +108,19 @@
     }
 
     .results {
-        background-color: #F5F6F7;
         padding: 40px 40px;
     }
     
     .results__title {
-        margin: 0 0 64px 0;
-        font-family: 'Roboto Slab', sans-serif;
-        font-size: 40px;
-        line-height: 1.2;
-        font-weight: normal;
-        color: #1A1B22;
+        margin: 0 0 32px 0;
+        font-size: 30px;
     }
 
    .results__show-more {
-    width: 240px;
-    height: 56px;
-    margin-top: 22px;
- }
+       width: 240px;
+       height: 56px;
+       margin-top: 22px;
+    }
 }
   
 @media screen and (max-width: 425px) {
@@ -145,13 +140,12 @@
     }
 
     .results {
-        background-color: #F5F6F7;
-        padding: 16px 32px;
+        padding: 32px 16px;
+        align-items: center;
     }
     
     .results__title {
         margin: 0 0 24px 0;
-        font-size: 30px;
     }
 
     .results__show-more {
