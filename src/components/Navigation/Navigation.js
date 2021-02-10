@@ -14,6 +14,11 @@ function Navigation({ savedNews, onLogin, loggedIn, userName }) {
 
   const [isBurgerMenuOpen, setIsBurgerMenuOpen] = React.useState(false);
 
+  const menuBoxClassName = (`${location.pathname === '/saved-news' ? 'burger-menu__box burger-menu__box_black' : 'burger-menu__box'}`);
+  const menuLinkClassName = (`${location.pathname === '/saved-news' ? 'burger-menu__item burger-menu__item_black' : 'burger-menu__item'}`);
+  const menuAuthButtonClassName = (`${location.pathname === '/saved-news'? 'burger-menu__auth-btn burger-menu__auth-btn_black' : 'burger-menu__auth-btn'}`);
+  const menuToggleButtonClassName = (`${location.pathname === '/saved-news' ? 'burger-menu__pseudo-btn burger-menu__pseudo-btn_black' : 'burger-menu__pseudo-btn'}`);
+
   function toggleBurgerMenu() {
     setIsBurgerMenuOpen(!isBurgerMenuOpen)
   }
@@ -35,18 +40,18 @@ function Navigation({ savedNews, onLogin, loggedIn, userName }) {
     {/* <label className="burger-menu__btn" htmlFor="menu"> */}
       <input className="burger-menu__toggle" id="menu" type="checkbox" onClick={toggleBurgerMenu} />
       <label className="burger-menu__btn" htmlFor="menu">
-      <span className="burger-menu__pseudo-btn"></span>
+      <span className={menuToggleButtonClassName}></span>
     </label>
         
-        <ul className="burger-menu__box">
-          <li><Link className="burger-menu__item" to="/">Главная</Link></li>
+        <ul className={menuBoxClassName}>
+          <li><Link className={menuLinkClassName} to="/">Главная</Link></li>
           {loggedIn &&
             <>
-              <li><Link className="burger-menu__item" to="/saved-news">Сохраненные статьи</Link></li>
+              <li><Link className={menuLinkClassName} to="/saved-news">Сохраненные статьи</Link></li>
               <button className={logoutButtonClassName}>Грета</button>
             </>}
 
-            {!loggedIn && <li><button className="burger-menu__auth-btn" onClick={onLogin}>Авторизоваться</button></li>}
+            {!loggedIn && <li><button className={menuAuthButtonClassName} onClick={onLogin}>Авторизоваться</button></li>}
 
         </ul>
     </div>
