@@ -36,11 +36,22 @@
     margin: 0 0 24px 0;
 }
 
-@media screen and (max-width: 930px) {
+@media screen and (max-width: 1200px) {
     .about {
         padding: 40px 40px 0 40px;
     }
     
+    .about__photo {
+        width: 375px;
+        height: 375px;
+    }
+    .about__text {
+        max-width: 500px;
+    }
+    
+}
+
+@media screen and (max-width: 930px) { 
     .about__photo {
         width: 232px;
         height: 232px;

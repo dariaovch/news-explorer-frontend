@@ -2,10 +2,10 @@ import './SavedNews.css';
 import SavedNewsHeader from '../SavedNewsHeader/SavedNewsHeader.js';
 import NewsCardList from '../NewsCardList/NewsCardList.js';
 
-function SavedNews() {
+function SavedNews(props) {
   return (
     <>
-    <SavedNewsHeader />
+    <SavedNewsHeader loggedIn={props.loggedIn} />
 
     <section className="saved-news">
       <div className="saved-news__text-container">
@@ -15,7 +15,7 @@ function SavedNews() {
         Грета, у вас 6 сохраненных статей
         </h2>
     
-        <p className="saved-news__keywords">По ключевым словам: Природа, Тайга и 2-м другим</p>
+        <p className="saved-news__keywords">По ключевым словам: <span className="saved-news__keyword-span">Природа</span>, <span className="saved-news__keyword-span">Тайга</span> и <span className="saved-news__keyword-span">2-м другим</span></p>
       </div>
 
       <div className="saved-news__container">

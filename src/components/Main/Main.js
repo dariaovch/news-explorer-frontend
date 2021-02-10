@@ -16,6 +16,14 @@ function Main(props) {
   //   setNews(NewsArr);
   // }
 
+  const [isSaved, setIsSaved] = React.useState(false);
+
+  function handleSaveClick(item) {
+    if(props.loggedIn) {
+      setIsSaved(item);
+    }
+  }
+
   return (
     <div className="main">
         <div className="main__background">
@@ -29,7 +37,7 @@ function Main(props) {
 
         <section className="results">
           
-         {/* {isLoading && <Preloader />} */}
+        {/* {isLoading &&  <Preloader />} */}
 
            {NewsArr && 
            <>
@@ -37,12 +45,12 @@ function Main(props) {
                 Результаты поиска
              </h2>
 
-             <NewsCardList />
+             <NewsCardList isSaved={isSaved} onSaveClick={handleSaveClick} />
 
              <button className="results__show-more">Показать ещё</button>
             </>}
 
-            {/* {news.length === 0 && <NothingFound />} */}
+             {/* <NothingFound /> */}
 
         </section>
         <About />

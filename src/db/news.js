@@ -13,7 +13,7 @@ export const NewsArr = [
         "text": "В 2016 году Америка отмечала важный юбилей: сто лет назад здесь начала складываться система национальных парков – охраняемых территорий, где и сегодня каждый может приобщиться к природе.",
         "date": "2 августа, 2019",
         "source": "Лента.ру",
-        "link": "",
+        "link": "https://nat-geo.ru/nature/natsionalnoe-dostoyanie-parki/",
         "image": ImageSix
     },
     {
@@ -23,7 +23,7 @@ export const NewsArr = [
         "text": "Фотограф отвлеклась от освещения суровой политической реальности Мексики, чтобы запечатлеть ускользающую красоту одного из местных чудес природы.",
         "date": "2 августа, 2019",
         "source": "Медуза",
-        "link": "",
+        "link": "https://nat-geo.ru/nature/lesnye-ogonki-istoriya-odnoj-fotografii/",
         "image": ImageTwo
     },
     {
@@ -33,7 +33,7 @@ export const NewsArr = [
         "text": "Знаменитый фотограф снимает первозданные леса России, чтобы рассказать о необходимости их сохранения. В этот раз он отправился в Двинско-Пинежскую тайгу, где...",
         "date": "2 августа, 2019",
         "source": "Лента.ру",
-        "link": "",
+        "link": "https://nat-geo.ru/nature/pervozdannaya-tajga-novyj-fotoproekt-igorya-shpilenka/",
         "image": ImageFive
     },
     {
@@ -43,7 +43,7 @@ export const NewsArr = [
         "text": "В 2016 году Америка отмечала важный юбилей: сто лет назад здесь начала складываться система национальных парков – охраняемых территорий, где и сегодня каждый может приобщиться к природе.",
         "date": "2 августа, 2019",
         "source": "Лента.ру",
-        "link": "",
+        "link": "https://nat-geo.ru/nature/natsionalnoe-dostoyanie-parki/",
         "image": ImageFour
     },
     {
@@ -53,7 +53,7 @@ export const NewsArr = [
         "text": "Фотограф отвлеклась от освещения суровой политической реальности Мексики, чтобы запечатлеть ускользающую красоту одного из местных чудес природы.",
         "date": "2 августа, 2019",
         "source": "Медуза",
-        "link": "",
+        "link": "https://nat-geo.ru/nature/lesnye-ogonki-istoriya-odnoj-fotografii/",
         "image": ImageOne
     },
     {
@@ -63,7 +63,7 @@ export const NewsArr = [
         "text": "Знаменитый фотограф снимает первозданные леса России, чтобы рассказать о необходимости их сохранения. В этот раз он отправился в Двинско-Пинежскую тайгу, где...",
         "date": "2 августа, 2019",
         "source": "Лента.ру",
-        "link": "",
+        "link": "https://nat-geo.ru/nature/pervozdannaya-tajga-novyj-fotoproekt-igorya-shpilenka/",
         "image": ImageThree
     }
 ]

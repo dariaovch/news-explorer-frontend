@@ -56,6 +56,17 @@
     }
 }
 
+@media screen and (max-width: 425px) {
+    .popup__container {
+        width: 100%;
+    }
+
+    .popup__close-button {
+        align-self: flex-end;
+        margin-right: 15px;
+    }
+}
+
 .popup__form {
     max-width: 430px;
     background-color: white;
@@ -74,7 +85,8 @@
 
 @media screen and (max-width: 425px) {
     .popup__form {
-        max-width: 280px;
+        max-width: 100%;
+        height: calc(100vh - 56px);
     }
 }
 
@@ -104,10 +116,15 @@
     font-weight: normal;
     font-size: 12px;
     line-height: 15px;
+    /* margin-top: 30px; */
     margin-bottom: 9px;
     margin-left: 36px;
     align-self: flex-start;
 }
+
+/* .popup__input-label:first-of-type {
+    margin-top: 0;
+} */
 
 .popup__input {
     font-weight: normal;
@@ -120,9 +137,9 @@
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 }
 
-.popup__input:last-of-type {
+/* .popup__input:last-of-type {
     margin-bottom: 0;
-}
+} */
 
 .popup__input::placeholder {
     color: #00000040;
@@ -137,10 +154,10 @@
     border-bottom: 1px solid rgba(0, 0, 0, 1);;
 }
 
-.popup__input_type_error {   
+/* .popup__input_type_error {   
     border-bottom: 1px solid #FF0000;
     margin-bottom: 0;
-}
+} */
 
 @media screen and (max-width: 640px) {
     .popup__input {
@@ -148,18 +165,14 @@
     }
 }
 
-.popup__form-error {
-    display: none;
-    margin: 5px auto 13px 36px;
-    font-weight: normal;
+.popup__input-error {
+    margin: -27px auto 13px 36px;
+    font-family: 'Inter', sans-serif;
     font-size: 12px;
-    line-height: 15px;
+    line-height: 14.5px;
     color: #FF0000;
 }
 
-.popup__form-error_visible {
-    display: flex;
-}
 
 .popup__submit-button {
     width: 358px;
@@ -172,7 +185,7 @@
     border-radius: 100px;
     border-color: transparent;
     box-shadow: 0px 5px 15px rgba(14, 26, 57, 0.2);
-    margin: 39px 35px 16px 35px;
+    margin: 13px 35px 16px 35px;
     transition: background-color 0.4s linear;
 }
 
@@ -219,4 +232,20 @@
 
 .popup__toggle-span {
     color: #2F71E5;
+}
+
+.popup__container_tooltip {
+    background-color: #fff;
+    max-width: 430px;
+    align-items: center;
+    border-radius: 10px;
+}
+     
+.popup__heading_tooltip {
+    margin: 43px auto 14px 36px;
+}
+
+.popup__toggle_tooltip {
+    align-self: flex-start;
+    margin: 0 auto 51px 36px;
 }
