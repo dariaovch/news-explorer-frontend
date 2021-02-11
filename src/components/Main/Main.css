@@ -123,12 +123,19 @@
        margin-top: 22px;
     }
 }
-  
-@media screen and (max-width: 425px) {
+
+@media screen and (max-width: 535px) {
+    .results {
+        padding: 32px 16px;
+        align-items: center;
+    }
+
     .cover {
         padding: 30px 16px 0 16px;
     }
-    
+}
+  
+@media screen and (max-width: 425px) {
     .cover__title {
         max-width: 285px;
         font-size: 36px;
@@ -138,11 +145,6 @@
     .cover__text {
         max-width: 288px;
         margin: 0 0 122px 0;
-    }
-
-    .results {
-        padding: 32px 16px;
-        align-items: center;
     }
     
     .results__title {

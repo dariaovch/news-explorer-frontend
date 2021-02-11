@@ -11,6 +11,21 @@
     z-index: 1;
 }
 
+
+/* Высота попапа на мобильных устройствах iOS и Android */
+@supports (-webkit-touch-callout: none) {
+    .popup {
+      height: 100vh;
+    }
+  }
+  
+  /* @media all and (-webkit-min-device-pixel-ratio:0) and (min-resolution: .001dpcm) { 
+    .selector:not(*:root), .popup {
+      height: 100vh;
+    }
+  } */
+  
+
 .popup_opened {
     visibility: visible;
     opacity: 1;
@@ -239,6 +254,10 @@
 
 .popup__toggle-span {
     color: #2F71E5;
+}
+
+.popup__toggle-span:hover {
+    cursor: pointer;
 }
 
 .popup__container_tooltip {

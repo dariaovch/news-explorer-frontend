@@ -22,6 +22,8 @@
 
 .footer__main-links {
     display: flex;
+    list-style: none;
+    padding: 0;
 }
 
 .footer__link {
@@ -45,6 +47,8 @@
 
 .footer__social {
     display: flex;
+    list-style: none;
+    padding: 0;
 }
 
 .footer__icon {
@@ -88,7 +92,7 @@
     }
 }
   
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 730px) {
     .footer {
         display: flex;
         flex-direction: column-reverse;

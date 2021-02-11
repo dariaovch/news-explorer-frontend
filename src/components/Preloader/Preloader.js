@@ -5,7 +5,7 @@ function Preloader() {
     return (
         <section className="results">
           <div className="preloader">
-              <img src={spinner} className="preloader__spinner rotation" />
+              <img src={spinner} alt="Спиннер поиска" className="preloader__spinner rotation" />
               <p className="preloader__text">Идёт поиск новостей...</p>
           </div>
         </section>

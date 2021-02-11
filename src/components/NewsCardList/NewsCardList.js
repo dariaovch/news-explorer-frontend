@@ -1,7 +1,7 @@
 import React from 'react';
 import './NewsCardList.css';
 import NewsCard from '../NewsCard/NewsCard.js';
-import { NewsArr } from '../../db/news.js';
+// import { NewsArr } from '../../db/news.js';
 import { useLocation } from 'react-router-dom';
 
 function NewsCardList(props) {
@@ -15,7 +15,7 @@ function NewsCardList(props) {
     </ul>
 
     {location.pathname === '/' && <button className="results__show-more">Показать ещё</button>}
-    
+
     </>
   );
 }

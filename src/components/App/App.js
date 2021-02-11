@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch, Redirect, useHistory } from 'react-router-dom';
+import { Route, Switch, useHistory } from 'react-router-dom';
 import './App.css';
 // import Header from '../Header/Header.js';
 import Main from '../Main/Main.js';
@@ -13,23 +13,27 @@ function App() {
 
    // Стейт-переменные для авторизации
    const [loggedIn, setLoggedIn] = React.useState(false);
-   const [userName, setUserName] = React.useState('');
+  //  const [userName, setUserName] = React.useState('');
 
    // Cтейт-переменные для открытия и закрытия попапов
    const [isLoginPopupOpen, setIsLoginPopupOpen] = React.useState(false);
    const [isSignupPopupOpen, setIsSignupPopupOpen] = React.useState(false);
 
+   // Tooltip успешной регистрации
    const [isInfoTooltipOpen, setIsInfoTooltipOpen] = React.useState(false);
 
+   // Ошибки валидации в формах
    const { values, handleChange, errors, isFormValid, resetForm } = useFormWithValidation();
 
    const history = useHistory();
 
+   // Имитация ошибки с сервера в форме регистрации
    const [mockServerError, setMockServerError] = React.useState(false);
 
-  function handleLogin() {
-    setLoggedIn(true);
-  }
+
+  // function handleLogin() {
+  //   setLoggedIn(true);
+  // }
 
   function handleLogout() {
     setLoggedIn(false);
@@ -41,9 +45,9 @@ function App() {
     setIsLoginPopupOpen(true);
   }
 
-  function handleSignupPopupClick() {
-    setIsSignupPopupOpen(true);
-  }
+  // function handleSignupPopupClick() {
+  //   setIsSignupPopupOpen(true);
+  // }
 
   function closeAllPopups() {
     setIsSignupPopupOpen(false);
@@ -107,11 +111,11 @@ function App() {
 
         <Switch>
           <Route exact path="/">
-            <Main loggedIn={loggedIn} userName={userName} onLogin={handleLoginPopupClick} logout={handleLogout} />
+            <Main loggedIn={loggedIn} onLogin={handleLoginPopupClick} logout={handleLogout} />
           </Route>
         
           <Route path="/saved-news">
-            <SavedNews userName={userName} loggedIn={loggedIn} logout={handleLogout} />
+            <SavedNews loggedIn={loggedIn} logout={handleLogout} />
           </Route>
         </Switch>
 
@@ -119,13 +123,14 @@ function App() {
 
       </div>
 
+      {/* Для тестирования верстки формы принимают любые данные, ошибки валидации нативные, почта "example@test.com" имитирует ошибку сервера - пользователь уже существует */}
       <PopupWithForm name="login" title="Вход" buttonText="Войти" isOpen={isLoginPopupOpen} onClose={closeAllPopups} onToggle={togglePopup} onSubmit={handleLoginSubmit} isFormValid={isFormValid}>
-                <label className="popup__input-label" htmlFor="email">Email</label>
+                <label className="popup__input-label" htmlFor="login-email">Email</label>
                 <input 
                   className="popup__input popup__input_email"
                   type="email" 
                   name="email" 
-                  id="email" 
+                  id="login-email" 
                   required 
                   minLength="6" 
                   maxLength="40" 
@@ -135,12 +140,12 @@ function App() {
                 />
                 {errors.email && <span className="popup__input-error">{errors.email}</span>}
 
-                <label className="popup__input-label" htmlFor="password">Пароль</label>
+                <label className="popup__input-label" htmlFor="login-password">Пароль</label>
                 <input 
                   className="popup__input popup__input_password"
                   type="password" 
                   name="password" 
-                  id="password" 
+                  id="login-password" 
                   required 
                   minLength="5" 
                   maxLength="30" 
@@ -152,12 +157,12 @@ function App() {
         </PopupWithForm>
 
         <PopupWithForm name="signup" title="Регистрация" buttonText="Зарегистрироваться" isOpen={isSignupPopupOpen} onClose={closeAllPopups} onToggle={togglePopup} onSubmit={handleSignUpSubmit} mockServerError={mockServerError} isFormValid={isFormValid}>
-        <label className="popup__input-label" htmlFor="email">Email</label>
+        <label className="popup__input-label" htmlFor="signup-email">Email</label>
                 <input 
                   className="popup__input popup__input_email"
                   type="email" 
                   name="email" 
-                  id="email" 
+                  id="signup-email" 
                   required 
                   minLength="6" 
                   maxLength="40" 
@@ -167,12 +172,12 @@ function App() {
                 />
                 {errors.email && <span className="popup__input-error">{errors.email}</span>}
 
-                <label className="popup__input-label" htmlFor="password">Пароль</label>
+                <label className="popup__input-label" htmlFor="signup-password">Пароль</label>
                 <input 
                   className="popup__input popup__input_password"
                   type="password" 
                   name="password" 
-                  id="password" 
+                  id="signup-password" 
                   required 
                   minLength="5" 
                   maxLength="30" 

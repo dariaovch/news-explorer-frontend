@@ -41,8 +41,10 @@ function Main(props) {
         </section>
         </div>
           
+          {/* Лоадер рендерится с помощью имитации (SetTimeout) */}
        {isLoading && <Preloader />}
 
+       {/* Через 5 секунд рендерятся результаты поиска, сейчас работают на любое введенное слово */}
        {news.length > 0 && 
            <section className="results">
              <h2 className="results__title">
@@ -53,6 +55,7 @@ function Main(props) {
 
             </section>}
 
+        {/* "Ничего не найдено" пока не рендерится */}
         {news.length === 1 && <NothingFound />}
 
         <About />

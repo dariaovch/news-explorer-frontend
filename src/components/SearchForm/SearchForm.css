@@ -38,7 +38,7 @@
     color: #fff;
     font-family: 'Roboto', 'Arial', 'Helvetice', sans-serif;
     font-size: 18px;
-    font-weight: 500px;
+    font-weight: 500;
     line-height: 24px;
     border: none;
     background-color: #2F71E5;
@@ -76,8 +76,8 @@
         height: 56px;
     }
 }
-  
-@media screen and (max-width: 425px) {
+
+@media screen and (max-width: 535px) {
     .search {
         flex-direction: column;
     }
