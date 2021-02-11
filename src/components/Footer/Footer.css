@@ -1,4 +1,5 @@
 .footer {
+    font-family: 'Roboto', 'Arial', 'Helvetica', sans-serif;
     margin: 0 auto;
     /* max-width: 1070px; */
     padding: 30px 104px;
@@ -8,9 +9,8 @@
 
 .footer__copyright {
     color: #B6BCBF;
-    font-family: 'Roboto', sans-serif;
     font-size: 16px;
-    line-height: 1.2;
+    line-height: 1.3;
 }
 
 .footer__links {
@@ -31,7 +31,6 @@
 .footer__link-decor {
     text-decoration: none;
     color: #1A1B22;
-    font-family: 'Roboto', sans-serif;
     font-size: 18px;
     line-height: 1.2;
 }

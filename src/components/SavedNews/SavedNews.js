@@ -1,11 +1,12 @@
 import './SavedNews.css';
 import SavedNewsHeader from '../SavedNewsHeader/SavedNewsHeader.js';
 import NewsCardList from '../NewsCardList/NewsCardList.js';
+import { NewsArr } from '../../db/news.js';
 
 function SavedNews(props) {
   return (
     <>
-    <SavedNewsHeader loggedIn={props.loggedIn} />
+    <SavedNewsHeader loggedIn={props.loggedIn} onLogout={props.logout} />
 
     <section className="saved-news">
       <div className="saved-news__text-container">
@@ -19,7 +20,7 @@ function SavedNews(props) {
       </div>
 
       <div className="saved-news__container">
-      <NewsCardList />
+      <NewsCardList news={NewsArr} />
       </div>
 
       </section>

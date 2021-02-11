@@ -10,49 +10,51 @@ import { NewsArr } from '../../db/news.js';
 
 function Main(props) {
 
-  // const [news, setNews] = React.useState([]);
+  const [news, setNews] = React.useState([]);
+  const [isLoading, setIsLoading] = React.useState(false);
 
-  // function getNews() {
-  //   setNews(NewsArr);
-  // }
+  function getNews(arr) {
+    setNews(arr);
+  }
 
-  const [isSaved, setIsSaved] = React.useState(false);
-
-  function handleSaveClick(item) {
-    if(props.loggedIn) {
-      setIsSaved(item);
-    }
+  function handleSearchSubmit(evt) {
+    evt.preventDefault();
+    setIsLoading(true);
+    setTimeout(() => 
+      setIsLoading(false),
+      4000
+    );
+    setTimeout(() =>
+    getNews(NewsArr),
+    4000
+    );
   }
 
   return (
     <div className="main">
         <div className="main__background">
-        <Header onLogin={props.onLogin} loggedIn={props.loggedIn} userName={props.userName} />
+        <Header onLogin={props.onLogin} loggedIn={props.loggedIn} userName={props.userName} onLogout={props.logout} />
         <section className="cover">
             <h1 className="cover__title">Что творится в мире?</h1>
             <p className="cover__text">Находите самые свежие статьи на любую тему и сохраняйте в своём личном кабинете.</p>
-            <SearchForm />
+            <SearchForm onSubmit={handleSearchSubmit} />
         </section>
         </div>
-
-        <section className="results">
           
-        {/* {isLoading &&  <Preloader />} */}
+       {isLoading && <Preloader />}
 
-           {NewsArr && 
-           <>
+       {news.length > 0 && 
+           <section className="results">
              <h2 className="results__title">
                 Результаты поиска
              </h2>
 
-             <NewsCardList isSaved={isSaved} onSaveClick={handleSaveClick} />
+             <NewsCardList news={news} loggedIn={props.loggedIn} />
 
-             <button className="results__show-more">Показать ещё</button>
-            </>}
+            </section>}
 
-             {/* <NothingFound /> */}
+        {news.length === 1 && <NothingFound />}
 
-        </section>
         <About />
     </div>
   );

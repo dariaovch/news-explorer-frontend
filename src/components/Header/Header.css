@@ -8,12 +8,25 @@
 }
 
 .header__title {
-    font-family: 'Roboto Slab';
+    font-family: 'Roboto Slab', 'Arial', 'Helvetica', sans-serif;;
     color: #fff;
-    font-weight: normal;
+    font-weight: 700;
     font-size: 20px;
     line-height: 1.2;
     margin: 0;
+}
+
+.header__logo-link {
+    text-decoration: none;
+    z-index: 30;
+}
+
+.header__logo-link:focus {
+    outline: none;
+}
+
+.header__logo-link:hover {
+    cursor: pointer;
 }
 
 @media screen and (max-width: 930px) {

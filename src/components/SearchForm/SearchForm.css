@@ -12,8 +12,9 @@
     padding-left: 24px;
     box-sizing: border-box;
     color: #1A1B22;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto', 'Arial', 'Helvetica', sans-serif;
     font-size: 16px;
+    font-weight: normal;
     line-height: 22px;
 }
 
@@ -27,6 +28,7 @@
 
 .search__input:focus {
     outline: none;
+    border: 1px solid #2F71E5;
 }
 
 .search__button {
@@ -34,8 +36,9 @@
     height: 64px;
     border-radius: 100px;
     color: #fff;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto', 'Arial', 'Helvetice', sans-serif;
     font-size: 18px;
+    font-weight: 500px;
     line-height: 24px;
     border: none;
     background-color: #2F71E5;

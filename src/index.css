@@ -1,5 +1,9 @@
 @import url('./vendor/fonts/fonts.css');
 
+html {
+  height: 100%;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Roboto Slab', 'Oxygen',

@@ -16,6 +16,20 @@
     margin: 0;
 }
 
+.header__logo-link {
+    text-decoration: none;
+    z-index: 30;
+}
+
+.header__logo-link:focus {
+    outline: none;
+}
+
+.header__logo-link:hover {
+    cursor: pointer;
+}
+
+
 @media screen and (max-width: 930px) {
     .header_sv {
         padding: 14px 40px 12px 40px;

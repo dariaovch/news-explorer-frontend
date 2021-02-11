@@ -173,6 +173,13 @@
     color: #FF0000;
 }
 
+.popup__server-error {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    line-height: 14.5px;
+    color: #FF0000;
+}
+
 
 .popup__submit-button {
     width: 358px;
@@ -212,7 +219,7 @@
     }
 }
 
-.popup__submit-button_disabled {
+.popup__submit-button:disabled {
     background-color: #E6E8EB;
     color: #B6BCBF;
 }
