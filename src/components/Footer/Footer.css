@@ -1,0 +1,138 @@
+.footer {
+    font-family: 'Roboto', 'Arial', 'Helvetica', sans-serif;
+    margin: 0 auto;
+    /* max-width: 1070px; */
+    padding: 30px 104px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.footer__copyright {
+    color: #B6BCBF;
+    font-size: 16px;
+    line-height: 1.3;
+}
+
+.footer__links {
+    color: #1A1B22;
+    list-style: none;
+    display: flex;
+    padding: 0;
+}
+
+.footer__main-links {
+    display: flex;
+    list-style: none;
+    padding: 0;
+}
+
+.footer__link {
+     margin-right: 42px;
+}
+
+.footer__link-decor {
+    text-decoration: none;
+    color: #1A1B22;
+    font-size: 18px;
+    line-height: 1.2;
+}
+
+.footer__link-decor:hover {
+    cursor: pointer;
+}
+
+.footer__link-decor:focus {
+    outline: none;
+}
+
+.footer__social {
+    display: flex;
+    list-style: none;
+    padding: 0;
+}
+
+.footer__icon {
+
+}
+
+.footer__fb {
+    margin-right: 28px;
+}
+
+.footer__github {
+
+}
+
+
+@media screen and (max-width: 930px) {
+    .footer {
+        margin: 0 auto;
+        /* max-width: 688px; */
+        padding: 0 40px;
+    }
+
+    .footer__link {
+         margin-right: 28px;
+    }
+    
+    .footer__social {
+        display: flex;
+    }
+    
+    .footer__icon {
+    
+    }
+    
+    .footer__fb {
+        margin-right: 26px;
+    }
+    
+    .footer__github {
+    
+    }
+}
+  
+@media screen and (max-width: 730px) {
+    .footer {
+        display: flex;
+        flex-direction: column-reverse;
+        justify-content: space-between;
+        padding: 0;
+    }
+    
+    .footer__copyright {
+       margin: 0 16px 20px 16px;
+    }
+    
+    .footer__links {
+        color: #1A1B22;
+        list-style: none;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .footer__main-links {
+        flex-direction: column;
+    }
+    
+    .footer__link {
+        margin: 0 0 38px 16px;
+    }
+    
+    .footer__social {
+        display: flex;
+    }
+    
+    .footer__icon {
+        width: 20px;
+        height: 20px;
+    }
+    
+    .footer__fb {
+        margin-right: 28px;
+    }
+    
+    .footer__github {
+        margin-right: 18px;
+    }
+}
