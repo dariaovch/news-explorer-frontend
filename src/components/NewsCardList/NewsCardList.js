@@ -11,7 +11,7 @@ function NewsCardList(props) {
   return (
     <>
     <ul className="news">
-    {props.news.map((item) => <NewsCard item={item} key={item._id} loggedIn={props.loggedIn} />)}
+    {props.news.map((item) => <NewsCard item={item} key={item.url} loggedIn={props.loggedIn} />)}
     </ul>
 
     {location.pathname === '/' && <button className="results__show-more">Показать ещё</button>}

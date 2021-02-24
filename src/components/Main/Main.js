@@ -10,25 +10,23 @@ import { NewsArr } from '../../db/news.js';
 
 function Main(props) {
 
-  const [news, setNews] = React.useState([]);
-  const [isLoading, setIsLoading] = React.useState(false);
+  // function getNews(arr) {
+  //   setNews(arr);
+  // }
 
-  function getNews(arr) {
-    setNews(arr);
-  }
-
-  function handleSearchSubmit(evt) {
-    evt.preventDefault();
-    setIsLoading(true);
-    setTimeout(() => 
-      setIsLoading(false),
-      4000
-    );
-    setTimeout(() =>
-    getNews(NewsArr),
-    4000
-    );
-  }
+  // function handleSearchSubmit(evt) {
+  //   evt.preventDefault();
+  //   setIsLoading(true);
+  //   setTimeout(() => 
+  //     setIsLoading(false),
+  //     4000
+  //   );
+  //   setTimeout(() =>
+  //   getNews(NewsArr),
+  //   4000
+  //   );
+  // }
+  console.log(props.news);
 
   return (
     <div className="main">
@@ -37,26 +35,27 @@ function Main(props) {
         <section className="cover">
             <h1 className="cover__title">Что творится в мире?</h1>
             <p className="cover__text">Находите самые свежие статьи на любую тему и сохраняйте в своём личном кабинете.</p>
-            <SearchForm onSubmit={handleSearchSubmit} />
+            <SearchForm handleSearch={props.handleSearch} />
         </section>
         </div>
           
           {/* Лоадер рендерится с помощью имитации (SetTimeout) */}
-       {isLoading && <Preloader />}
-
+       {props.isLoading && <Preloader />}
+      
+     
        {/* Через 5 секунд рендерятся результаты поиска, сейчас работают на любое введенное слово */}
-       {news.length > 0 && 
+       {props.news.length > 0 && 
            <section className="results">
              <h2 className="results__title">
                 Результаты поиска
              </h2>
 
-             <NewsCardList news={news} loggedIn={props.loggedIn} />
+             <NewsCardList news={props.news} loggedIn={props.loggedIn} />
 
             </section>}
 
         {/* "Ничего не найдено" пока не рендерится */}
-        {news.length === 1 && <NothingFound />}
+        {props.notFound && <NothingFound />}
 
         <About />
     </div>

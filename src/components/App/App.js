@@ -7,6 +7,7 @@ import SavedNews from '../SavedNews/SavedNews.js';
 import Footer from '../Footer/Footer.js';
 import PopupWithForm from '../PopupWithForm/PopupWithForm.js';
 import InfoTooltip from '../InfoTooltip/InfoTooltip.js';
+import { newsApi } from '../../utils/NewsApi.js';
 import useFormWithValidation from '../../hooks/useFormWithValidation.js';
 
 function App() {
@@ -30,6 +31,12 @@ function App() {
    // Имитация ошибки с сервера в форме регистрации
    const [mockServerError, setMockServerError] = React.useState(false);
 
+   // Стейты блока результатов
+   const [foundNews, setFoundNews] = React.useState([]);
+   const [isLoading, setIsLoading] = React.useState(false);
+   const [notFound, setNotFound] = React.useState(false);
+   const [serverError, setServerError] = React.useState(false);
+ 
 
   // function handleLogin() {
   //   setLoggedIn(true);
@@ -103,6 +110,28 @@ function App() {
     }
   })
 
+  function handleNewsSearch(keyword) {
+    setFoundNews([]);
+    setIsLoading(true);
+    setNotFound(false);
+
+    return newsApi.getNewsByKeyword(keyword)
+             .then((data) => {
+               setFoundNews(data.articles);
+               setNotFound(false);
+
+               if(data.articles.length === 0) {
+                 setNotFound(true);
+               }
+             })
+             .catch((err) => {
+               setServerError(true);
+             })
+             .finally(() => {
+               setIsLoading(false);
+             })
+  }
+
   return (
     <div className="page">
       <div className="page__container">
@@ -111,7 +140,7 @@ function App() {
 
         <Switch>
           <Route exact path="/">
-            <Main loggedIn={loggedIn} onLogin={handleLoginPopupClick} logout={handleLogout} />
+            <Main loggedIn={loggedIn} onLogin={handleLoginPopupClick} logout={handleLogout} handleSearch={handleNewsSearch} news={foundNews} isLoading={isLoading} notFound={notFound} serverError={serverError} />
           </Route>
         
           <Route path="/saved-news">
