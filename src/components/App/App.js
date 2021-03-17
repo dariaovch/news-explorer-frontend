@@ -42,6 +42,11 @@ function App() {
   //   setLoggedIn(true);
   // }
 
+  React.useEffect(() => {
+    const lastFoundNews = localStorage.getItem('news') ? JSON.parse(localStorage.getItem('news')) : [];
+    setFoundNews(lastFoundNews);
+  }, []);
+
   function handleLogout() {
     setLoggedIn(false);
     history.push('/');
@@ -112,11 +117,13 @@ function App() {
 
   function handleNewsSearch(keyword) {
     setFoundNews([]);
+    localStorage.removeItem('news');
     setIsLoading(true);
     setNotFound(false);
 
     return newsApi.getNewsByKeyword(keyword)
              .then((data) => {
+               localStorage.setItem('news', JSON.stringify(data.articles));
                setFoundNews(data.articles);
                setNotFound(false);
 
