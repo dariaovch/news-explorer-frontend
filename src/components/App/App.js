@@ -6,15 +6,24 @@ import Main from '../Main/Main.js';
 import SavedNews from '../SavedNews/SavedNews.js';
 import Footer from '../Footer/Footer.js';
 import PopupWithForm from '../PopupWithForm/PopupWithForm.js';
+import LoginPopup from '../LoginPopup/LoginPopup.js';
+import RegisterPopup from '../RegisterPopup/RegisterPopup.js';
 import InfoTooltip from '../InfoTooltip/InfoTooltip.js';
 import { newsApi } from '../../utils/NewsApi.js';
+import { mainApi } from '../../utils/MainApi.js';
 import useFormWithValidation from '../../hooks/useFormWithValidation.js';
 
 function App() {
 
    // Стейт-переменные для авторизации
    const [loggedIn, setLoggedIn] = React.useState(false);
-  //  const [userName, setUserName] = React.useState('');
+   const [userName, setUserName] = React.useState('');
+   const [currentUser, setCurrentUser] = React.useState({
+    name: '',
+    email: '',
+  });
+  // const [userEmail, setUserEmail] = React.useState('');
+  // const [isSuccessTooltipOpen, setIsSuccessTooltipOpen] = React.useState(false);
 
    // Cтейт-переменные для открытия и закрытия попапов
    const [isLoginPopupOpen, setIsLoginPopupOpen] = React.useState(false);
@@ -37,21 +46,6 @@ function App() {
    const [notFound, setNotFound] = React.useState(false);
    const [serverError, setServerError] = React.useState(false);
  
-
-  // function handleLogin() {
-  //   setLoggedIn(true);
-  // }
-
-  React.useEffect(() => {
-    const lastFoundNews = localStorage.getItem('news') ? JSON.parse(localStorage.getItem('news')) : [];
-    setFoundNews(lastFoundNews);
-  }, []);
-
-  function handleLogout() {
-    setLoggedIn(false);
-    history.push('/');
-
-  }
 
   function handleLoginPopupClick() {
     setIsLoginPopupOpen(true);
@@ -139,6 +133,90 @@ function App() {
              })
   }
 
+
+  // Логика регистрации и авторизации
+  
+  function handleRegister(name, email, password) {
+    console.log(name, email, password)
+    mainApi.register(name, email, password)
+      .then((res) => {
+        console.log('Вы успешно зарегистрировались!')
+        setUserName(res.name);
+        setIsInfoTooltipOpen(true);
+        setTimeout(() => 
+          setIsInfoTooltipOpen(false),
+          3000
+        );
+        history.push('/signin');
+      })
+      .catch((err) => {
+        if(err.status === '400') {
+          console.log('Неверно заполнено одно из полей')}
+        
+        // setIsFailTooltipOpen(true)
+        // setTimeout(() => 
+        // setIsFailTooltipOpen(false),
+        // 10000
+        // );
+      })
+  }
+
+  function handleLogin(email, password) {
+    mainApi.login(email, password)
+      .then((res) => {
+        if(res.token) {
+          localStorage.setItem('token', res.token);
+          setLoggedIn(true);
+          // setUserName(email);
+          tokenCheck();
+          history.push('/');
+        }
+      })
+      .catch((err) => {
+        console.log(err)
+        if(err.status === '400') {
+          console.log('Неверно заполнено одно из полей')} else if (err.status === '401') {
+            console.log('Пользователь с таким email не найден');
+          }
+
+        // setIsFailTooltipOpen(true)
+        // setTimeout(() => 
+        // setIsFailTooltipOpen(false),
+        // 10000
+        // );
+      })
+  }
+
+  function tokenCheck() {
+    const token = localStorage.getItem('token')
+    if(token) {
+      mainApi.getContent(token)
+        .then((res) => { 
+          if(res) {
+            // setUserEmail(res.email);
+            setLoggedIn(true)
+            history.push('/');
+          }
+        })
+        .catch((err) => console.log(err))
+    }
+  }
+
+
+  function handleLogout() {
+      localStorage.removeItem('token');
+      // setUserEmail('');
+      setLoggedIn(false);
+      history.push('/');
+  }
+
+  // Проверяем наличие валидного токена и достаем из хранилища результаты последнего поиска
+  React.useEffect(() => {
+    tokenCheck();
+    const lastFoundNews = localStorage.getItem('news') ? JSON.parse(localStorage.getItem('news')) : [];
+    setFoundNews(lastFoundNews);
+  }, []);
+
   return (
     <div className="page">
       <div className="page__container">
@@ -160,86 +238,11 @@ function App() {
       </div>
 
       {/* Для тестирования верстки формы принимают любые данные, ошибки валидации нативные, почта "example@test.com" имитирует ошибку сервера - пользователь уже существует */}
-      <PopupWithForm name="login" title="Вход" buttonText="Войти" isOpen={isLoginPopupOpen} onClose={closeAllPopups} onToggle={togglePopup} onSubmit={handleLoginSubmit} isFormValid={isFormValid}>
-                <label className="popup__input-label" htmlFor="login-email">Email</label>
-                <input 
-                  className="popup__input popup__input_email"
-                  type="email" 
-                  name="email" 
-                  id="login-email" 
-                  required 
-                  minLength="6" 
-                  maxLength="40" 
-                  placeholder="Введите почту" 
-                  value={values.email || ''}
-                  onChange={handleChange}
-                />
-                {errors.email && <span className="popup__input-error">{errors.email}</span>}
+      <LoginPopup isOpen={isLoginPopupOpen} onClose={closeAllPopups} handleLogin={handleLogin} onToggle={togglePopup} tokenCheck={tokenCheck} />
 
-                <label className="popup__input-label" htmlFor="login-password">Пароль</label>
-                <input 
-                  className="popup__input popup__input_password"
-                  type="password" 
-                  name="password" 
-                  id="login-password" 
-                  required 
-                  minLength="5" 
-                  maxLength="30" 
-                  placeholder="Введите пароль" 
-                  value={values.password || ''}
-                  onChange={handleChange}
-                />
-                {errors.password && <span className="popup__input-error">{errors.password}</span>}
-        </PopupWithForm>
-
-        <PopupWithForm name="signup" title="Регистрация" buttonText="Зарегистрироваться" isOpen={isSignupPopupOpen} onClose={closeAllPopups} onToggle={togglePopup} onSubmit={handleSignUpSubmit} mockServerError={mockServerError} isFormValid={isFormValid}>
-        <label className="popup__input-label" htmlFor="signup-email">Email</label>
-                <input 
-                  className="popup__input popup__input_email"
-                  type="email" 
-                  name="email" 
-                  id="signup-email" 
-                  required 
-                  minLength="6" 
-                  maxLength="40" 
-                  placeholder="Введите почту" 
-                  value={values.email || ''}
-                  onChange={handleChange}
-                />
-                {errors.email && <span className="popup__input-error">{errors.email}</span>}
-
-                <label className="popup__input-label" htmlFor="signup-password">Пароль</label>
-                <input 
-                  className="popup__input popup__input_password"
-                  type="password" 
-                  name="password" 
-                  id="signup-password" 
-                  required 
-                  minLength="5" 
-                  maxLength="30" 
-                  placeholder="Введите пароль" 
-                  value={values.password || ''}
-                  onChange={handleChange}
-                />
-                {errors.password && <span className="popup__input-error">{errors.password}</span>}
-
-                <label className="popup__input-label" htmlFor="name">Имя</label>
-                <input 
-                  className="popup__input popup__input_name" 
-                  type="text" 
-                  name="name" 
-                  id="name" 
-                  required 
-                  minLength="2" 
-                  maxLength="40" 
-                  placeholder="Введите своё имя" 
-                  value={values.name || ''}
-                  onChange={handleChange}
-                />
-                {errors.name && <span className="popup__input-error">{errors.name}</span>}
-        </PopupWithForm>
-
-        <InfoTooltip title="Пользователь успешно зарегистрирован!" name="success" isOpen={isInfoTooltipOpen} onClose={closeAllPopups} onLogin={handleLoginPopupClick} />
+      <RegisterPopup isOpen={isSignupPopupOpen} onClose={closeAllPopups} handleRegister={handleRegister} onToggle={togglePopup} />
+     
+      <InfoTooltip title="Пользователь успешно зарегистрирован!" name="success" isOpen={isInfoTooltipOpen} onClose={closeAllPopups} onLogin={handleLoginPopupClick} />
 
 
     </div>
