@@ -14,6 +14,7 @@ import { newsApi } from '../../utils/NewsApi.js';
 import { mainApi } from '../../utils/MainApi.js';
 import * as Auth from '../../utils/Auth.js';
 import useFormWithValidation from '../../hooks/useFormWithValidation.js';
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
 function App() {
 
@@ -144,15 +145,28 @@ function App() {
   }
 
   function handleArticleSave(item, keyword) {
-    return mainApi.saveArticle(item, keyword)
-      .then((newArticle) => {
-        console.log(newArticle);
-        setSavedNews([newArticle, ...savedNews]);
+    const isArticleSaved = savedNews.find((article) => article.title === item.title);
+
+    if (!isArticleSaved) {
+      return mainApi.saveArticle(item, keyword)
+        .then((newArticle) => {
+          console.log(newArticle);
+          setSavedNews([newArticle, ...savedNews]);
         // getSavedNewsByUser();
-      })
-      .catch((err) => {
-        console.log(err);
-      })
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+      } else {
+        return mainApi.deleteArticle(item._id)
+          .then(() => {
+            const newList = savedNews.filter((a) => a._id !== item._id);
+            setSavedNews(newList);
+          })
+          .catch((err) => {
+            console.log(err);
+          })
+      }
   }
 
   function handleArticleDelete(item) {
@@ -292,7 +306,8 @@ function App() {
           </Route>
         
           <Route path="/saved-news">
-            <SavedNews
+            <ProtectedRoute path="/saved-news"
+              component={SavedNews}
               loggedIn={loggedIn}
               logout={handleLogout}
               savedNews={savedNews}
