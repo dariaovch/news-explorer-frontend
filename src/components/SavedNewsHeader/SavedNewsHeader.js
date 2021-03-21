@@ -7,7 +7,7 @@ function SavedNewsHeader(props) {
   return (
     <header className="header_sv">
         <Link to="/" className="header__logo-link"><h2 className="header__title_sv">NewsExplorer</h2></Link>
-        <Navigation loggedIn={props.loggedIn} onLogout={props.onLogout} />
+        <Navigation loggedIn={props.loggedIn} onLogout={props.onLogout} userName={props.userName} />
     </header>
   );
 }

@@ -1,7 +1,7 @@
 import './NewsCard.css';
 import { useLocation } from 'react-router-dom';
 
-function NewsCard({ item, loggedIn }) {
+function NewsCard({ item, loggedIn, onSave, onDelete, keyword, image, link, date, text, source }) {
    const location = useLocation();
 
   //  const buttonClassName = (`${location.pathname === '/saved-news' ? 'card__delete-button' : 'card__save-button'}`);
@@ -10,29 +10,34 @@ function NewsCard({ item, loggedIn }) {
   //  const saveButtonClassName = (`${isSaved ? 'card__save-button card__save-button_saved' : 'card__save-button'}`);
 
   function handleSaveClick(evt) {
-    if(loggedIn) {
+    // if(loggedIn) {
       evt.target.classList.toggle('card__save-button_saved')
-    }
+      onSave(item, keyword);
+    // }
+  }
+
+  function handleDeleteClick() {
+      onDelete(item);
   }
 
   return (
         <li className="card">
         {location.pathname === '/saved-news' && <button className="card__keyword">{item.keyword}</button>}
-        {location.pathname === '/saved-news' && <button className="card__delete-button" type="button" aria-label="delete"></button>}
+        {location.pathname === '/saved-news' && <button className="card__delete-button" type="button" aria-label="delete" onClick={handleDeleteClick}></button>}
         {location.pathname === '/' && <button className="card__save-button" type="button" aria-label="save" onClick={handleSaveClick}></button>}
         {location.pathname === '/' && !loggedIn && <button className={hintClassName}>Войдите, чтобы сохранять статьи</button>}
         {location.pathname === '/saved-news' && <button className={hintClassName}>Убрать из сохраненных</button>}
-        <img className="card__image" alt="Картинка новости" src={item.urlToImage} />
-        <a className="card__src-link" href={item.url} target="_blank">
+        <img className="card__image" alt="Картинка новости" src={image} />
+        <a className="card__src-link" href={link} target="_blank">
         <div className="card__data-container">
           <div className="card__article-container">
-            <p className="card__date">{item.publishedAt}</p>
+            <p className="card__date">{date}</p>
               <h2 className="card__heading">{item.title}</h2>
-              <p className="card__text">{item.description}</p>
+              <p className="card__text">{text}</p>
            </div>
            
               
-              <p className="card__source">{item.source.name}</p>
+              <p className="card__source">{source}</p>
         </div>
         </a>
       </li>

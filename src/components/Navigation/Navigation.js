@@ -3,7 +3,7 @@ import './Navigation.css';
 import { Link } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 
-function Navigation({ onLogin, loggedIn, onLogout }) {
+function Navigation({ onLogin, loggedIn, onLogout, userName }) {
 
   const location = useLocation();
 
@@ -48,7 +48,7 @@ function Navigation({ onLogin, loggedIn, onLogout }) {
           {loggedIn &&
             <>
               <li><Link className={menuSavedLinkClassName} to="/saved-news">Сохраненные статьи</Link></li>
-              <li><button className={logoutButtonClassName} onClick={onLogout}>Грета</button></li>
+              <li><button className={logoutButtonClassName} onClick={onLogout}>{userName}</button></li>
             </>}
 
             {!loggedIn && <li><button className={menuAuthButtonClassName} onClick={onLogin}>Авторизоваться</button></li>}
