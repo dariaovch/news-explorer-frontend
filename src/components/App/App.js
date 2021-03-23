@@ -69,6 +69,8 @@ function App() {
          })
      }
    }, [loggedIn]);
+
+  
  
 
   function handleLoginPopupClick() {
@@ -273,8 +275,11 @@ function App() {
     if(loggedIn){
       return mainApi.getSavedArticles()
         .then((articles) => {
-          const savedNewsByUser = articles.filter((a) => (a.owner === currentUser.id));
+          console.log(articles)
+          const savedNewsByUser = articles.filter((a) => a.owner === currentUser.id);
           setSavedNews(savedNewsByUser);
+          console.log(savedNewsByUser)
+          console.log(currentUser.id)
         })
         .catch((err) => {
           console.log(err);

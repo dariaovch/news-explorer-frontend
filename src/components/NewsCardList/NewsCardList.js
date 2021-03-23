@@ -32,7 +32,7 @@ function NewsCardList({ news, loggedIn, onArticleSave, onArticleDelete, keyword 
     <>
     <ul className="news">
     {location.pathname === '/' && shownNews.map((item) => <NewsCard item={item} key={item.url} loggedIn={loggedIn} onSave={onArticleSave} keyword={keyword} image={item.urlToImage} link={item.url} date={item.publishedAt} text={item.description} source={item.source.name} />)}
-    {location.pathname === '/saved-news' && news.map((item) => <NewsCard item={item} key={item.url} loggedIn={loggedIn} onDelete={onArticleDelete} keyword={keyword} image={item.image} link={item.link} date={item.date} text={item.text} source={item.source} />)}
+    {location.pathname === '/saved-news' && news.map((item) => <NewsCard item={item} key={item._id} loggedIn={loggedIn} onDelete={onArticleDelete} keyword={keyword} image={item.image} link={item.link} date={item.date} text={item.text} source={item.source} />)}
     </ul>
 
     {(location.pathname === '/' && showMoreButton) && <button className="results__show-more" onClick={handleMoreButtonClick}>Показать ещё</button>}
