@@ -147,9 +147,22 @@ function App() {
   }
 
   function handleArticleSave(item, keyword) {
+    console.log(savedNews)
+    console.log(item)
     const isArticleSaved = savedNews.find((article) => article.title === item.title);
+    console.log(isArticleSaved)
+    
 
-    if (!isArticleSaved) {
+    if (isArticleSaved) {
+      return mainApi.deleteArticle(isArticleSaved._id)
+        .then(() => {
+          const newList = savedNews.filter((a) => a._id !== isArticleSaved._id);
+          setSavedNews(newList);
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+    } else {
       return mainApi.saveArticle(item, keyword)
         .then((newArticle) => {
           console.log(newArticle);
@@ -159,16 +172,7 @@ function App() {
         .catch((err) => {
           console.log(err);
         })
-      } else {
-        return mainApi.deleteArticle(item._id)
-          .then(() => {
-            const newList = savedNews.filter((a) => a._id !== item._id);
-            setSavedNews(newList);
-          })
-          .catch((err) => {
-            console.log(err);
-          })
-      }
+      } 
   }
 
   function handleArticleDelete(item) {
