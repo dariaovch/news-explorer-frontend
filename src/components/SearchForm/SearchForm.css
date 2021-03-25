@@ -65,6 +65,22 @@
     outline: none;
 }
 
+.search__input-error {
+    margin: -27px auto 13px 36px;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    line-height: 14.5px;
+    color: #2F71E5;
+}
+
+.search__button:disabled {
+    background-color: #B6BCBF;
+}
+
+.search__input:disabled {
+    border: 1px solid #2F71E5;
+}
+
 @media screen and (max-width: 930px) {
     .search__input {
         width: 448px;

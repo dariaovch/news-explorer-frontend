@@ -15,6 +15,7 @@ import { mainApi } from '../../utils/MainApi.js';
 import * as Auth from '../../utils/Auth.js';
 import useFormWithValidation from '../../hooks/useFormWithValidation.js';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
+import { closePopupTime } from '../../utils/constants';
 
 function App() {
 
@@ -47,31 +48,48 @@ function App() {
    const [isLoading, setIsLoading] = React.useState(false);
    const [notFound, setNotFound] = React.useState(false);
    const [serverError, setServerError] = React.useState(false);
+   const [isFormBlocked, setIsFormBlocked] = React.useState(false);
 
    // Стейты сохраненных новостей
    const [savedNews, setSavedNews] = React.useState([]);
    const [keyword, setKeyword] = React.useState('');
+   
+   
+  React.useEffect(() => {
+    const token = localStorage.getItem('token')
+    tokenCheck();
+    console.log(currentUser)
+    if(loggedIn){
+      return mainApi.getSavedArticlesWithToken(token)
+        .then((articles) => {
+          console.log(articles)
+          const savedNewsByUser = articles.filter((a) => a.owner === currentUser.id);
+          setSavedNews(savedNewsByUser);
+          console.log(savedNewsByUser)
+          console.log(currentUser.id)
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+    }
+  }, [currentUser.id, loggedIn]);
 
-
-   React.useEffect(() => {
-     if (loggedIn) {
-       return mainApi.getUserInfo()
-         .then((userData) => {
-           setCurrentUser({
-             id: userData._id,
-             name: userData.name,
-             email: userData.email,
-           });
-           setLoggedIn(true);
-         })
-         .catch((err) => {
-           console.log(err)
-         })
-     }
-   }, [loggedIn]);
-
-  
- 
+  //  React.useEffect(() => {
+  //   if (loggedIn) {
+  //     return mainApi.getUserInfo()
+  //       .then((userData) => {
+  //         setCurrentUser({
+  //           id: userData._id,
+  //           name: userData.name,
+  //           email: userData.email,
+  //         });
+  //         setLoggedIn(true);
+  //       })
+  //       .catch((err) => {
+  //         console.log(err)
+  //       })
+  //   }
+  // }, [loggedIn]);
 
   function handleLoginPopupClick() {
     setIsLoginPopupOpen(true);
@@ -125,6 +143,7 @@ function App() {
     localStorage.removeItem('keyword');
     setIsLoading(true);
     setNotFound(false);
+    setIsFormBlocked(true);
 
     return newsApi.getNewsByKeyword(keyword)
              .then((data) => {
@@ -143,10 +162,14 @@ function App() {
              })
              .finally(() => {
                setIsLoading(false);
+               setIsFormBlocked(false);
              })
   }
 
   function handleArticleSave(item, keyword) {
+    if(!loggedIn) {
+      return setIsLoginPopupOpen(true);
+    }
     console.log(savedNews)
     console.log(item)
     const isArticleSaved = savedNews.find((article) => article.title === item.title);
@@ -186,23 +209,43 @@ function App() {
       })
   }
 
-  // function getSavedNewsByUser() {
-  //   if (loggedIn) {
-  //     return mainApi.getSavedArticles()
-  //       .then((articles) => {
-  //         const savedNewsByUser = articles.filter((a) => (a.owner === currentUser.id));
-  //         setSavedNews(savedNewsByUser);
-  //       })
-  //       .catch((err) => {
-  //         console.log(err);
-  //       })
-  //   }
-  // }
+  function getSavedNewsByUser() {
+    if (loggedIn) {
+      return mainApi.getSavedArticles()
+        .then((articles) => {
+          const savedNewsByUser = articles.filter((a) => (a.owner === currentUser.id));
+          setSavedNews(savedNewsByUser);
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+    }
+  }
 
 
   // Логика регистрации и авторизации
-  
+  function tokenCheck() {
+    const token = localStorage.getItem('token')
+    if(token) {
+      Auth.getContent(token)
+        .then((res) => { 
+          if(res) {
+            console.log(res)
+            setCurrentUser({
+              id: res._id,
+              name: res.name,
+              email: res.email,
+            });
+            setLoggedIn(true);
+            history.push('/');
+          }
+        })
+        .catch((err) => console.log(err))
+    }
+  }
+
   function handleRegister(name, email, password) {
+    setIsFormBlocked(true);
     console.log(name, email, password)
     Auth.register(name, email, password)
       .then((res) => {
@@ -213,26 +256,30 @@ function App() {
         setTimeout(() => {
           setIsInfoTooltipOpen(false);
           setIsSignupPopupOpen(true);
-        }, 3000);
+        }, closePopupTime);
         history.push('/signin');
       })
       .catch((err) => {
         if(err.status === '400') {
           console.log('Неверно заполнено одно из полей')}
       })
+      .finally(() => setIsFormBlocked(false))
   }
 
   function handleLogin(email, password) {
+    setIsFormBlocked(true);
+
     Auth.login(email, password)
       .then((res) => {
         if(res.token) {
           localStorage.setItem('token', res.token);
           setLoggedIn(true);
           tokenCheck();
+          // getSavedNewsByUser();
           history.push('/');
           setTimeout(() => {
             setIsLoginPopupOpen(false);
-          }, 3000);
+          }, closePopupTime);
         }
       })
       .catch((err) => {
@@ -242,23 +289,8 @@ function App() {
             console.log('Пользователь с таким email не найден');
           }
       })
+      .finally(() => setIsFormBlocked(false))
   }
-
-  function tokenCheck() {
-    const token = localStorage.getItem('token')
-    if(token) {
-      Auth.getContent(token)
-        .then((res) => { 
-          if(res) {
-            // setUserEmail(res.email);
-            setLoggedIn(true)
-            history.push('/');
-          }
-        })
-        .catch((err) => console.log(err))
-    }
-  }
-
 
   function handleLogout() {
       localStorage.removeItem('token');
@@ -274,22 +306,6 @@ function App() {
     const lastKeyword = localStorage.getItem('keyword') ? JSON.parse(localStorage.getItem('keyword')) : '';
     setKeyword(lastKeyword);
   }, []);
-
-  React.useEffect(() => {
-    if(loggedIn){
-      return mainApi.getSavedArticles()
-        .then((articles) => {
-          console.log(articles)
-          const savedNewsByUser = articles.filter((a) => a.owner === currentUser.id);
-          setSavedNews(savedNewsByUser);
-          console.log(savedNewsByUser)
-          console.log(currentUser.id)
-        })
-        .catch((err) => {
-          console.log(err);
-        })
-    }
-  }, [currentUser.id, loggedIn]);
 
   return (
   <CurrentUserContext.Provider value={currentUser}>
@@ -311,6 +327,7 @@ function App() {
               serverError={serverError}
               onArticleSave={handleArticleSave}
               keyword={keyword}
+              isFormBlocked={isFormBlocked}
             />
           </Route>
         
@@ -322,6 +339,8 @@ function App() {
               savedNews={savedNews}
               onArticleDelete={handleArticleDelete}
               keyword={keyword}
+              onUnauthorized={handleLoginPopupClick}
+              onGetSavedNews={getSavedNewsByUser}
             />
           </Route>
         </Switch>
@@ -331,9 +350,9 @@ function App() {
       </div>
 
       {/* Для тестирования верстки формы принимают любые данные, ошибки валидации нативные, почта "example@test.com" имитирует ошибку сервера - пользователь уже существует */}
-      <LoginPopup isOpen={isLoginPopupOpen} onClose={closeAllPopups} handleLogin={handleLogin} onToggle={togglePopup} tokenCheck={tokenCheck} />
+      <LoginPopup isOpen={isLoginPopupOpen} onClose={closeAllPopups} handleLogin={handleLogin} onToggle={togglePopup} tokenCheck={tokenCheck} isFormBlocked={isFormBlocked} />
 
-      <RegisterPopup isOpen={isSignupPopupOpen} onClose={closeAllPopups} handleRegister={handleRegister} onToggle={togglePopup} />
+      <RegisterPopup isOpen={isSignupPopupOpen} onClose={closeAllPopups} handleRegister={handleRegister} onToggle={togglePopup} isFormBlocked={isFormBlocked} />
      
       <InfoTooltip title="Пользователь успешно зарегистрирован!" name="success" isOpen={isInfoTooltipOpen} onClose={closeAllPopups} onLogin={handleLoginPopupClick} />
 

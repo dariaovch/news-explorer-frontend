@@ -2,7 +2,7 @@ import React from 'react';
 import useFormWithValidation from '../../hooks/useFormWithValidation.js';
 import PopupWithForm from '../PopupWithForm/PopupWithForm.js';
 
-function RegisterPopup({isOpen, onClose, handleRegister, onToggle, tokenCheck}) {
+function RegisterPopup({isOpen, onClose, handleRegister, onToggle, tokenCheck, isFormBlocked}) {
 
     // const [ data, setData ] = React.useState({
     //     name: '',
@@ -32,7 +32,7 @@ function RegisterPopup({isOpen, onClose, handleRegister, onToggle, tokenCheck}) 
 
 
     return(
-        <PopupWithForm name="signup" title="Регистрация" buttonText="Зарегистрироваться" isOpen={isOpen} onClose={onClose} onToggle={onToggle} onSubmit={handleSubmit} isFormValid={isFormValid}>
+        <PopupWithForm name="signup" title="Регистрация" buttonText="Зарегистрироваться" isOpen={isOpen} onClose={onClose} onToggle={onToggle} onSubmit={handleSubmit} isFormValid={isFormValid} disabled={isFormBlocked}>
         <label className="popup__input-label" htmlFor="signup-email">Email</label>
                 <input 
                   className="popup__input popup__input_email"
@@ -45,6 +45,7 @@ function RegisterPopup({isOpen, onClose, handleRegister, onToggle, tokenCheck}) 
                   placeholder="Введите почту" 
                   value={values.email || ''}
                   onChange={handleChange}
+                  disabled={isFormBlocked}
                 />
                 {errors.email && <span className="popup__input-error">{errors.email}</span>}
 
@@ -60,6 +61,7 @@ function RegisterPopup({isOpen, onClose, handleRegister, onToggle, tokenCheck}) 
                   placeholder="Введите пароль" 
                   value={values.password || ''}
                   onChange={handleChange}
+                  disabled={isFormBlocked}
                 />
                 {errors.password && <span className="popup__input-error">{errors.password}</span>}
 
@@ -75,6 +77,7 @@ function RegisterPopup({isOpen, onClose, handleRegister, onToggle, tokenCheck}) 
                   placeholder="Введите своё имя" 
                   value={values.name || ''}
                   onChange={handleChange}
+                  disabled={isFormBlocked}
                 />
                 {errors.name && <span className="popup__input-error">{errors.name}</span>}
         </PopupWithForm>

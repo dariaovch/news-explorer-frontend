@@ -3,6 +3,7 @@ import './NewsCardList.css';
 import NewsCard from '../NewsCard/NewsCard.js';
 // import { NewsArr } from '../../db/news.js';
 import { useLocation } from 'react-router-dom';
+import { cardsAmount } from '../../utils/constants';
 
 function NewsCardList({ news, loggedIn, onArticleSave, onArticleDelete, keyword }) {
 
@@ -11,8 +12,8 @@ function NewsCardList({ news, loggedIn, onArticleSave, onArticleDelete, keyword 
 
 
   React.useEffect(() => {
-    setShownNews(news.slice(0, 3));
-    if(news.length <= 3) {
+    setShownNews(news.slice(0, cardsAmount));
+    if(news.length <= cardsAmount) {
       setShowMoreButton(false);
     } else {
       setShowMoreButton(true);
@@ -20,8 +21,8 @@ function NewsCardList({ news, loggedIn, onArticleSave, onArticleDelete, keyword 
   }, [news]);
 
   function handleMoreButtonClick() {
-    setShownNews(news.slice(0, shownNews.length + 3));
-    if(shownNews.length >= news.length - 3) {
+    setShownNews(news.slice(0, shownNews.length + cardsAmount));
+    if(shownNews.length >= news.length - cardsAmount) {
       setShowMoreButton(false);
     }
   }

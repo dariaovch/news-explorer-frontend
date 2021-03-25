@@ -9,7 +9,7 @@ import Preloader from '../Preloader/Preloader.js';
 import NothingFound from '../NothingFound/NothingFound.js';
 import { NewsArr } from '../../db/news.js';
 
-function Main({onLogin, loggedIn, logout, handleSearch, isLoading, notFound, news, onArticleSave, keyword}) {
+function Main({onLogin, loggedIn, logout, handleSearch, isLoading, notFound, news, onArticleSave, keyword, isFormBlocked}) {
 
   const currentUser = React.useContext(CurrentUserContext);
 
@@ -20,7 +20,7 @@ function Main({onLogin, loggedIn, logout, handleSearch, isLoading, notFound, new
         <section className="cover">
             <h1 className="cover__title">Что творится в мире?</h1>
             <p className="cover__text">Находите самые свежие статьи на любую тему и сохраняйте в своём личном кабинете.</p>
-            <SearchForm handleSearch={handleSearch} />
+            <SearchForm handleSearch={handleSearch} isFormBlocked={isFormBlocked} />
         </section>
         </div>
 

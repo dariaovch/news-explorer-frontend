@@ -4,6 +4,7 @@ import './SearchForm.css';
 function SearchForm(props) {
 
   const [keyword, setKeyword] = React.useState('');
+  const [errorMessage, setErrorMessage] = React.useState('');
   
   function handleInputChange(evt) {
     setKeyword(evt.target.value);
@@ -11,6 +12,10 @@ function SearchForm(props) {
 
   function handleSubmit(evt) {
     evt.preventDefault();
+
+    if(!keyword) {
+      return setErrorMessage('Поле ввода не может быть пустым, введите ключевое слово')
+    }
 
     props.handleSearch(keyword);
   }
@@ -28,8 +33,10 @@ function SearchForm(props) {
           maxLength="40"
           onChange={handleInputChange}
           value={keyword}
+          disabled={props.isFormBlocked}
         />
-        <button className="search__button">Искать</button>
+        <button className="search__button" disabled={props.isFormBlocked}>Искать</button>
+        {errorMessage && <span className="search__input-error">{errorMessage}</span>}
     </form>
   );
 }

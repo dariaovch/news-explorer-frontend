@@ -2,7 +2,7 @@ import React from 'react';
 import useFormWithValidation from '../../hooks/useFormWithValidation.js';
 import PopupWithForm from '../PopupWithForm/PopupWithForm.js';
 
-function LoginPopup({isOpen, onClose, handleLogin, onToggle, tokenCheck}) {
+function LoginPopup({isOpen, onClose, handleLogin, onToggle, tokenCheck, isFormBlocked}) {
 
     // const [ data, setData ] = React.useState({
     //     email: '',
@@ -33,7 +33,7 @@ function LoginPopup({isOpen, onClose, handleLogin, onToggle, tokenCheck}) {
 
 
     return(
-        <PopupWithForm name="login" title="Вход" buttonText="Войти" isOpen={isOpen} onClose={onClose} onToggle={onToggle} onSubmit={handleSubmit} isFormValid={isFormValid}>
+        <PopupWithForm name="login" title="Вход" buttonText="Войти" isOpen={isOpen} onClose={onClose} onToggle={onToggle} onSubmit={handleSubmit} isFormValid={isFormValid} isFormBlocked={isFormBlocked}>
                 <label className="popup__input-label" htmlFor="login-email">Email</label>
                 <input 
                   className="popup__input popup__input_email"
@@ -46,6 +46,7 @@ function LoginPopup({isOpen, onClose, handleLogin, onToggle, tokenCheck}) {
                   placeholder="Введите почту" 
                   value={values.email || ''}
                   onChange={handleChange}
+                  disabled={isFormBlocked}
                 />
                 {errors.email && <span className="popup__input-error">{errors.email}</span>}
 
@@ -61,6 +62,7 @@ function LoginPopup({isOpen, onClose, handleLogin, onToggle, tokenCheck}) {
                   placeholder="Введите пароль" 
                   value={values.password || ''}
                   onChange={handleChange}
+                  disabled={isFormBlocked}
                 />
                 {errors.password && <span className="popup__input-error">{errors.password}</span>}
         </PopupWithForm>

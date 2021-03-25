@@ -3,10 +3,13 @@ import './SavedNews.css';
 import SavedNewsHeader from '../SavedNewsHeader/SavedNewsHeader.js';
 import NewsCardList from '../NewsCardList/NewsCardList.js';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext.js';
-import { mainApi } from '../../utils/MainApi.js';
 
-function SavedNews({loggedIn, logout, savedNews, onArticleDelete, keyword}) {
+function SavedNews({loggedIn, logout, savedNews, onArticleDelete, keyword, onGetSavedNews}) {
   const currentUser = React.useContext(CurrentUserContext);
+
+  const allKeywords = savedNews.map((item) => item.keyword);
+ 
+  const keywords = allKeywords.filter((item, i) => allKeywords.indexOf(item) === i);
 
   return (
     <>
@@ -20,7 +23,7 @@ function SavedNews({loggedIn, logout, savedNews, onArticleDelete, keyword}) {
         {currentUser.name}, у вас {savedNews.length} сохраненных статей
         </h2>
     
-        <p className="saved-news__keywords">По ключевым словам: <span className="saved-news__keyword-span">Природа</span>, <span className="saved-news__keyword-span">Тайга</span> и <span className="saved-news__keyword-span">2-м другим</span></p>
+        <p className="saved-news__keywords">По ключевым словам: <span className="saved-news__keyword-span">{keywords[0]}</span>, <span className="saved-news__keyword-span">{keywords[1]}</span> и <span className="saved-news__keyword-span">{keywords[2]}</span></p>
       </div>
 
       <div className="saved-news__container">

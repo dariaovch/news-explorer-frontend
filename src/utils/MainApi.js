@@ -30,6 +30,18 @@ class MainApi {
         
     }
 
+    getSavedArticlesWithToken(token) {
+        return fetch (`${this._url}articles`, {
+            headers: {
+                'Content-Type': 'application/json',
+                authorization: `Bearer ${token}`,
+              },
+        })
+        .then(res => this._getResponseData(res));
+         
+     }
+ 
+
     // getAllPageData() {
     //     return Promise.all([this.getUserInfo(), this.getSavedArticles()]);
     // }
