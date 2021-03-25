@@ -19,9 +19,14 @@ class MainApi {
        }
   
 
-    getUserInfo() {
-        return this.getData('users/me')
-             .then(res => this._getResponseData(res));  
+    getUserInfo(token) {
+        return fetch (`${this._url}users/me`, {
+            headers: {
+                'Content-Type': 'application/json',
+                authorization: `Bearer ${token}`,
+              },
+        })
+        .then(res => this._getResponseData(res));
     }
 
     getSavedArticles() {
@@ -30,6 +35,7 @@ class MainApi {
         
     }
 
+    // Отправляем запрос с токеном после первого рендера после авторизации
     getSavedArticlesWithToken(token) {
         return fetch (`${this._url}articles`, {
             headers: {
@@ -42,14 +48,13 @@ class MainApi {
      }
  
 
-    // getAllPageData() {
-    //     return Promise.all([this.getUserInfo(), this.getSavedArticles()]);
-    // }
-
-    saveArticle(item, keyword) {
+    saveArticle(item, keyword, token) {
         return fetch(`${this._url}articles`, {
             method: 'POST',
-            headers:  this._headers,
+            headers: {
+                'Content-Type': 'application/json',
+                authorization: `Bearer ${token}`,
+              },
             body: JSON.stringify({
                 keyword: keyword,
                 title: item.title,
@@ -62,10 +67,13 @@ class MainApi {
         }).then(res => this._getResponseData(res));  
     }
 
-    deleteArticle(articleId) {
+    deleteArticle(articleId, token) {
         return fetch(`${this._url}articles/${articleId}`, {
             method: 'DELETE',
-            headers:  this._headers
+            headers: {
+                'Content-Type': 'application/json',
+                authorization: `Bearer ${token}`,
+              },
         }).then(res => this._getResponseData(res));
         
     }

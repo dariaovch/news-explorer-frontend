@@ -56,7 +56,7 @@ function RegisterPopup({isOpen, onClose, handleRegister, onToggle, tokenCheck, i
                   name="password" 
                   id="signup-password" 
                   required 
-                  minLength="5" 
+                  minLength="6" 
                   maxLength="30" 
                   placeholder="Введите пароль" 
                   value={values.password || ''}

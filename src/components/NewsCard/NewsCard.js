@@ -1,22 +1,21 @@
 import './NewsCard.css';
 import { useLocation } from 'react-router-dom';
+import formatDate from '../../utils/formatDate';
 
-function NewsCard({ item, loggedIn, onSave, onDelete, keyword, image, link, date, text, source }) {
+function NewsCard({ item, loggedIn, onSave, onDelete, keyword, image, link, date, text, source, userId }) {
    const location = useLocation();
 
-  //  const buttonClassName = (`${location.pathname === '/saved-news' ? 'card__delete-button' : 'card__save-button'}`);
    const hintClassName = (`${location.pathname === '/saved-news' ? 'card__delete-hint' : 'card__save-hint'}`);
-
-  //  const saveButtonClassName = (`${isSaved ? 'card__save-button card__save-button_saved' : 'card__save-button'}`);
+  // const saveButtonClassName = (`${isSaved ? 'card__save-button card__save-button_saved' : 'card__save-button'}`);
 
   function handleSaveClick(evt) {
-    // if(loggedIn) {
       evt.target.classList.toggle('card__save-button_saved')
       onSave(item, keyword);
-    // }
+      console.log(loggedIn)
   }
 
   function handleDeleteClick() {
+    console.log(loggedIn)
       onDelete(item);
   }
 
@@ -31,7 +30,7 @@ function NewsCard({ item, loggedIn, onSave, onDelete, keyword, image, link, date
         <a className="card__src-link" href={link} target="_blank">
         <div className="card__data-container">
           <div className="card__article-container">
-            <p className="card__date">{date}</p>
+            <p className="card__date">{formatDate(date)}</p>
               <h2 className="card__heading">{item.title}</h2>
               <p className="card__text">{text}</p>
            </div>

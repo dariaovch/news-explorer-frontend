@@ -2,46 +2,38 @@ import React from 'react';
 import { Route, Switch, useHistory } from 'react-router-dom';
 import './App.css';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext.js';
-// import Header from '../Header/Header.js';
 import Main from '../Main/Main.js';
 import SavedNews from '../SavedNews/SavedNews.js';
 import Footer from '../Footer/Footer.js';
-import PopupWithForm from '../PopupWithForm/PopupWithForm.js';
 import LoginPopup from '../LoginPopup/LoginPopup.js';
 import RegisterPopup from '../RegisterPopup/RegisterPopup.js';
 import InfoTooltip from '../InfoTooltip/InfoTooltip.js';
 import { newsApi } from '../../utils/NewsApi.js';
 import { mainApi } from '../../utils/MainApi.js';
 import * as Auth from '../../utils/Auth.js';
-import useFormWithValidation from '../../hooks/useFormWithValidation.js';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
-import { closePopupTime } from '../../utils/constants';
+import { CLOSE_POPUP_TIME } from '../../utils/constants';
 
 function App() {
 
    // Стейт-переменные для авторизации
    const [loggedIn, setLoggedIn] = React.useState(false);
-   const [userName, setUserName] = React.useState('');
    const [currentUser, setCurrentUser] = React.useState({
     id: '',
     name: '',
     email: '',
   });
-  // const [userEmail, setUserEmail] = React.useState('');
-  // const [isSuccessTooltipOpen, setIsSuccessTooltipOpen] = React.useState(false);
 
    // Cтейт-переменные для открытия и закрытия попапов
    const [isLoginPopupOpen, setIsLoginPopupOpen] = React.useState(false);
    const [isSignupPopupOpen, setIsSignupPopupOpen] = React.useState(false);
 
-   // Tooltip успешной регистрации
+   // Tooltip успешной регистрации или ошибки при запросе на сервер
    const [isInfoTooltipOpen, setIsInfoTooltipOpen] = React.useState(false);
-
+   const [tooltipMessage, setTooltipMessage] = React.useState('');
 
    const history = useHistory();
 
-   // Имитация ошибки с сервера в форме регистрации
-  //  const [mockServerError, setMockServerError] = React.useState(false);
 
    // Стейты блока результатов
    const [foundNews, setFoundNews] = React.useState([]);
@@ -53,57 +45,31 @@ function App() {
    // Стейты сохраненных новостей
    const [savedNews, setSavedNews] = React.useState([]);
    const [keyword, setKeyword] = React.useState('');
-   
-   
-  React.useEffect(() => {
-    const token = localStorage.getItem('token')
-    tokenCheck();
-    console.log(currentUser)
-    if(loggedIn){
-      return mainApi.getSavedArticlesWithToken(token)
-        .then((articles) => {
-          console.log(articles)
-          const savedNewsByUser = articles.filter((a) => a.owner === currentUser.id);
-          setSavedNews(savedNewsByUser);
-          console.log(savedNewsByUser)
-          console.log(currentUser.id)
-        })
-        .catch((err) => {
-          console.log(err);
-        })
-    }
-  }, [currentUser.id, loggedIn]);
 
-  //  React.useEffect(() => {
-  //   if (loggedIn) {
-  //     return mainApi.getUserInfo()
-  //       .then((userData) => {
-  //         setCurrentUser({
-  //           id: userData._id,
-  //           name: userData.name,
-  //           email: userData.email,
-  //         });
-  //         setLoggedIn(true);
-  //       })
-  //       .catch((err) => {
-  //         console.log(err)
-  //       })
-  //   }
-  // }, [loggedIn]);
+   React.useEffect(() => {
+     const token = localStorage.getItem('token');
+
+     if(loggedIn) {
+       mainApi.getUserInfo(token)
+         .then((data) => {
+           console.log(data)
+           setCurrentUser({
+            id: data._id,
+            name: data.name,
+            email: data.email,
+           })
+         })
+     }
+   }, [loggedIn]);
 
   function handleLoginPopupClick() {
     setIsLoginPopupOpen(true);
   }
 
-  // function handleSignupPopupClick() {
-  //   setIsSignupPopupOpen(true);
-  // }
-
   function closeAllPopups() {
     setIsSignupPopupOpen(false);
     setIsLoginPopupOpen(false);
     setIsInfoTooltipOpen(false);
-    // resetForm();
   }
 
   function togglePopup() {
@@ -170,14 +136,13 @@ function App() {
     if(!loggedIn) {
       return setIsLoginPopupOpen(true);
     }
-    console.log(savedNews)
-    console.log(item)
+
+   const token = localStorage.getItem('token');
+  
     const isArticleSaved = savedNews.find((article) => article.title === item.title);
-    console.log(isArticleSaved)
-    
 
     if (isArticleSaved) {
-      return mainApi.deleteArticle(isArticleSaved._id)
+      return mainApi.deleteArticle(isArticleSaved._id, token)
         .then(() => {
           const newList = savedNews.filter((a) => a._id !== isArticleSaved._id);
           setSavedNews(newList);
@@ -186,11 +151,10 @@ function App() {
           console.log(err);
         })
     } else {
-      return mainApi.saveArticle(item, keyword)
+      return mainApi.saveArticle(item, keyword, token)
         .then((newArticle) => {
           console.log(newArticle);
           setSavedNews([newArticle, ...savedNews]);
-        // getSavedNewsByUser();
         })
         .catch((err) => {
           console.log(err);
@@ -199,7 +163,9 @@ function App() {
   }
 
   function handleArticleDelete(item) {
-    return mainApi.deleteArticle(item._id)
+    const token = localStorage.getItem('token');
+
+    return mainApi.deleteArticle(item._id, token)
       .then(() => {
         const newList = savedNews.filter((a) => a._id !== item._id);
         setSavedNews(newList);
@@ -222,15 +188,86 @@ function App() {
     }
   }
 
-
   // Логика регистрации и авторизации
+  function handleRegister(name, email, password) {
+    setIsFormBlocked(true);
+    console.log(name, email, password)
+    Auth.register(name, email, password)
+      .then((res) => {
+        console.log('Вы успешно зарегистрировались!')
+        setTooltipMessage('Пользователь успешно зарегистрирован!');
+        setIsSignupPopupOpen(false);
+        setIsInfoTooltipOpen(true);
+        setTimeout(() => {
+          setIsInfoTooltipOpen(false);
+          setIsLoginPopupOpen(true);
+        }, CLOSE_POPUP_TIME);
+      })
+      .catch((err) => {
+        console.log(err)
+        setIsSignupPopupOpen(false);
+        if (err.status === 400) {
+          console.log('Неверно заполнено одно из полей')
+          setTooltipMessage('Неверно заполнено одно из полей. Попробуйте еще раз!')
+        } else if (err.statusCode === 409) {
+          console.log('Такой пользователь уже существует')
+          setTooltipMessage('Такой пользователь уже существует. Попробуйте еще раз!')
+        } else {
+          setTooltipMessage('Что-то пошло не так! Попробуйте еще раз.');
+        }
+        setIsInfoTooltipOpen(true);
+        setTimeout(() => {
+          setIsInfoTooltipOpen(false);
+          setIsSignupPopupOpen(true);
+        }, CLOSE_POPUP_TIME);
+      })
+      .finally(() => setIsFormBlocked(false))
+  }
+
+  function handleLogin(email, password) {
+    setIsFormBlocked(true);
+
+    Auth.login(email, password)
+      .then((res) => {
+        console.log(res)
+        if(res.token) {
+          localStorage.setItem('token', res.token);
+          setLoggedIn(true);
+          tokenCheck();
+          history.push('/');
+          
+          setTimeout(() => {
+            setIsLoginPopupOpen(false);
+          }, CLOSE_POPUP_TIME);
+        }
+      })
+      .catch((err) => {
+        console.log(err)
+        setIsLoginPopupOpen(false);
+        if (err.status === 400) {
+          console.log('Неверно заполнено одно из полей')
+          setTooltipMessage('Неверно заполнено одно из полей. Попробуйте еще раз!')
+        } else if (err.status === 401) {
+          console.log('Пользователь не найден')
+          setTooltipMessage('Пользователь не найден. Попробуйте еще раз!')
+        } else {
+          setTooltipMessage('Что-то пошло не так! Попробуйте еще раз.');
+        }
+        setIsInfoTooltipOpen(true);
+        setTimeout(() => {
+          setIsInfoTooltipOpen(false);
+          setIsLoginPopupOpen(true);
+        }, CLOSE_POPUP_TIME);
+      })
+      .finally(() => setIsFormBlocked(false))
+  }
+
   function tokenCheck() {
     const token = localStorage.getItem('token')
     if(token) {
       Auth.getContent(token)
         .then((res) => { 
           if(res) {
-            console.log(res)
             setCurrentUser({
               id: res._id,
               name: res.name,
@@ -242,74 +279,53 @@ function App() {
         })
         .catch((err) => console.log(err))
     }
-  }
-
-  function handleRegister(name, email, password) {
-    setIsFormBlocked(true);
-    console.log(name, email, password)
-    Auth.register(name, email, password)
-      .then((res) => {
-        console.log('Вы успешно зарегистрировались!')
-        setUserName(res.name);
-        setIsSignupPopupOpen(false);
-        setIsInfoTooltipOpen(true);
-        setTimeout(() => {
-          setIsInfoTooltipOpen(false);
-          setIsSignupPopupOpen(true);
-        }, closePopupTime);
-        history.push('/signin');
-      })
-      .catch((err) => {
-        if(err.status === '400') {
-          console.log('Неверно заполнено одно из полей')}
-      })
-      .finally(() => setIsFormBlocked(false))
-  }
-
-  function handleLogin(email, password) {
-    setIsFormBlocked(true);
-
-    Auth.login(email, password)
-      .then((res) => {
-        if(res.token) {
-          localStorage.setItem('token', res.token);
-          setLoggedIn(true);
-          tokenCheck();
-          // getSavedNewsByUser();
-          history.push('/');
-          setTimeout(() => {
-            setIsLoginPopupOpen(false);
-          }, closePopupTime);
-        }
-      })
-      .catch((err) => {
-        console.log(err)
-        if(err.status === '400') {
-          console.log('Неверно заполнено одно из полей')} else if (err.status === '401') {
-            console.log('Пользователь с таким email не найден');
-          }
-      })
-      .finally(() => setIsFormBlocked(false))
-  }
+  };
 
   function handleLogout() {
       localStorage.removeItem('token');
       setLoggedIn(false);
+      setCurrentUser({
+        id: '',
+        name: '',
+        email: '',
+      })
       history.push('/');
   }
 
   // Проверяем наличие валидного токена и достаем из хранилища результаты последнего поиска
   React.useEffect(() => {
-    tokenCheck();
+    // tokenCheck();
     const lastFoundNews = localStorage.getItem('news') ? JSON.parse(localStorage.getItem('news')) : [];
     setFoundNews(lastFoundNews);
     const lastKeyword = localStorage.getItem('keyword') ? JSON.parse(localStorage.getItem('keyword')) : '';
     setKeyword(lastKeyword);
   }, []);
 
+  React.useEffect(() => {
+    const token = localStorage.getItem('token')
+    // tokenCheck();
+    console.log(currentUser)
+    if (loggedIn){
+      return mainApi.getSavedArticlesWithToken(token)
+        .then((articles) => {
+          const savedNewsByUser = articles.filter((a) => a.owner === currentUser.id);
+          setSavedNews(savedNewsByUser);
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+    }
+  }, [currentUser.id, loggedIn]);
+
+
+  React.useEffect(() => {
+    tokenCheck();
+  }, []);
+
+
   return (
-  <CurrentUserContext.Provider value={currentUser}>
-    <div className="page">
+    <CurrentUserContext.Provider value={currentUser}>
+      <div className="page">
       
       <div className="page__container">
   
@@ -349,12 +365,11 @@ function App() {
 
       </div>
 
-      {/* Для тестирования верстки формы принимают любые данные, ошибки валидации нативные, почта "example@test.com" имитирует ошибку сервера - пользователь уже существует */}
       <LoginPopup isOpen={isLoginPopupOpen} onClose={closeAllPopups} handleLogin={handleLogin} onToggle={togglePopup} tokenCheck={tokenCheck} isFormBlocked={isFormBlocked} />
 
       <RegisterPopup isOpen={isSignupPopupOpen} onClose={closeAllPopups} handleRegister={handleRegister} onToggle={togglePopup} isFormBlocked={isFormBlocked} />
      
-      <InfoTooltip title="Пользователь успешно зарегистрирован!" name="success" isOpen={isInfoTooltipOpen} onClose={closeAllPopups} onLogin={handleLoginPopupClick} />
+      <InfoTooltip title={tooltipMessage} name="tooltip" isOpen={isInfoTooltipOpen} onClose={closeAllPopups} onLogin={handleLoginPopupClick} />
 
     </div>
     </CurrentUserContext.Provider>

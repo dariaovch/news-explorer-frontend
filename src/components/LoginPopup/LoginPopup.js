@@ -4,20 +4,8 @@ import PopupWithForm from '../PopupWithForm/PopupWithForm.js';
 
 function LoginPopup({isOpen, onClose, handleLogin, onToggle, tokenCheck, isFormBlocked}) {
 
-    // const [ data, setData ] = React.useState({
-    //     email: '',
-    //     password: ''
-    // });
-
     const { values, handleChange, errors, isFormValid, resetForm } = useFormWithValidation();
-    
-    // function handleChange(evt) {
-    //   const {name, value} = evt.target;
-    //   setData({
-    //       ...data,
-    //       [name]: value
-    //   })
-    // }
+  
     
     function handleSubmit(evt) {
         evt.preventDefault();
@@ -57,8 +45,8 @@ function LoginPopup({isOpen, onClose, handleLogin, onToggle, tokenCheck, isFormB
                   name="password" 
                   id="login-password" 
                   required 
-                  minLength="5" 
-                  maxLength="30" 
+                  minLength="6" 
+                  maxLength="30"
                   placeholder="Введите пароль" 
                   value={values.password || ''}
                   onChange={handleChange}

@@ -7,9 +7,9 @@ import SearchForm from '../SearchForm/SearchForm.js';
 import NewsCardList from '../NewsCardList/NewsCardList.js';
 import Preloader from '../Preloader/Preloader.js';
 import NothingFound from '../NothingFound/NothingFound.js';
-import { NewsArr } from '../../db/news.js';
+import ServerError from '../ServerError/ServerError';
 
-function Main({onLogin, loggedIn, logout, handleSearch, isLoading, notFound, news, onArticleSave, keyword, isFormBlocked}) {
+function Main({onLogin, loggedIn, logout, handleSearch, isLoading, notFound, news, serverError, onArticleSave, keyword, isFormBlocked}) {
 
   const currentUser = React.useContext(CurrentUserContext);
 
@@ -32,11 +32,12 @@ function Main({onLogin, loggedIn, logout, handleSearch, isLoading, notFound, new
                 Результаты поиска
              </h2>
 
-             <NewsCardList news={news} loggedIn={loggedIn} onArticleSave={onArticleSave} keyword={keyword} />
+             <NewsCardList news={news} loggedIn={loggedIn} onArticleSave={onArticleSave} keyword={keyword} userId={currentUser.id} />
 
             </section>}
 
         {notFound && <NothingFound />}
+        {serverError && <ServerError />}
 
         <About />
     </div>

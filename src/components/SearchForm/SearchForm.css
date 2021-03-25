@@ -66,11 +66,11 @@
 }
 
 .search__input-error {
-    margin: -27px auto 13px 36px;
+    margin-top: 18px;
     font-family: 'Inter', sans-serif;
-    font-size: 12px;
+    font-size: 18px;
     line-height: 14.5px;
-    color: #2F71E5;
+    color: #ff0000;
 }
 
 .search__button:disabled {

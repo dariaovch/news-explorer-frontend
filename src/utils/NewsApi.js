@@ -1,3 +1,5 @@
+import { COUNT_DAYS } from "./constants";
+
 class NewsApi {
     constructor(options) {
         this._url = options.url;
@@ -27,7 +29,7 @@ class NewsApi {
 const options = {
     url: 'https://newsapi.org',
     apiKey: 'b6ee03d4b45543cb9d7cea0bf280ff71',
-    from: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10),
+    from: new Date(Date.now() - COUNT_DAYS).toISOString().slice(0, 10),
     to: new Date().toISOString().slice(0, 10),
     pageSize: 100,
     headers: {

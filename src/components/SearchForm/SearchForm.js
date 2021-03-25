@@ -14,16 +14,18 @@ function SearchForm(props) {
     evt.preventDefault();
 
     if(!keyword) {
-      return setErrorMessage('Поле ввода не может быть пустым, введите ключевое слово')
+      return setErrorMessage('Поле ввода не может быть пустым, введите ключевое слово');
     }
 
+    setErrorMessage('');
     props.handleSearch(keyword);
   }
 
   console.log(keyword)
 
   return (
-    <form className="search" onSubmit={handleSubmit}>
+    <>
+    <form className="search" onSubmit={handleSubmit} noValidate>
         <input 
           className="search__input" 
           type="text" 
@@ -35,9 +37,11 @@ function SearchForm(props) {
           value={keyword}
           disabled={props.isFormBlocked}
         />
-        <button className="search__button" disabled={props.isFormBlocked}>Искать</button>
-        {errorMessage && <span className="search__input-error">{errorMessage}</span>}
+        
+        <button className="search__button" disabled={props.isFormBlocked}>Искать</button>  
     </form>
+    {errorMessage && <span className="search__input-error">{errorMessage}</span>}
+    </>
   );
 }
 
