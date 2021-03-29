@@ -90,6 +90,12 @@
     outline: none;
 }
 
+@media screen and (max-width: 1300px) {
+    .results {
+        padding: 80px 24px;
+    }
+}
+
 
 @media screen and (max-width: 930px) {
     .cover {

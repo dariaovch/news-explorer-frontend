@@ -1,26 +1,35 @@
+import React from 'react';
 import './SavedNews.css';
 import SavedNewsHeader from '../SavedNewsHeader/SavedNewsHeader.js';
 import NewsCardList from '../NewsCardList/NewsCardList.js';
-import { NewsArr } from '../../db/news.js';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext.js';
+import formatSentence from '../../utils/formatSentence';
+import formatKeywords from '../../utils/formatKeywords';
 
-function SavedNews(props) {
+function SavedNews({loggedIn, logout, savedNews, onArticleDelete, keyword, onGetSavedNews}) {
+  const currentUser = React.useContext(CurrentUserContext);
+
+  const allKeywords = savedNews.map((item) => item.keyword);
+ 
+  const keywords = allKeywords.filter((item, i) => allKeywords.indexOf(item) === i);
+
   return (
     <>
-    <SavedNewsHeader loggedIn={props.loggedIn} onLogout={props.logout} />
+    <SavedNewsHeader loggedIn={loggedIn} onLogout={logout} userName={currentUser.name} />
 
     <section className="saved-news">
       <div className="saved-news__text-container">
         <p className="saved-news__breadcrumbs">Сохраненные статьи</p>
       
         <h2 className="saved-news__title">
-        Грета, у вас 6 сохраненных статей
+        {currentUser.name}, у вас {savedNews.length} {formatSentence(savedNews)}
         </h2>
     
-        <p className="saved-news__keywords">По ключевым словам: <span className="saved-news__keyword-span">Природа</span>, <span className="saved-news__keyword-span">Тайга</span> и <span className="saved-news__keyword-span">2-м другим</span></p>
+        {savedNews.length > 0 && formatKeywords(keywords)}
       </div>
 
       <div className="saved-news__container">
-      <NewsCardList news={NewsArr} />
+      <NewsCardList loggedIn={loggedIn} news={savedNews} onArticleDelete={onArticleDelete} keyword={keyword} />
       </div>
 
       </section>
